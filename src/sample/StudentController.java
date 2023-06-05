@@ -44,10 +44,34 @@ public class StudentController {
 
     public void initialize() {
         Platform.runLater(() -> stdID.requestFocus());
+        initializeTableColumns();
+        displayStudents();
+    }
+
+    private void initializeTableColumns() {
+
+        colstdID.setCellValueFactory(new PropertyValueFactory<>("studentID"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        colBirth.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        colFieldID.setCellValueFactory(new PropertyValueFactory<>("fieldID"));
+        colMail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+    }
+
+
+
+    private ObservableList<Student> getAllUsers() {
+
+        return null;
+    }
+
+    private void displayStudents() {
+        ObservableList<Student> students = getAllUsers();
+        StdTab.setItems(students);
     }
 
     @FXML
-        private TextField stdID;
+    private TextField stdID;
 
 
     @FXML
@@ -183,7 +207,48 @@ public class StudentController {
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
+        conn = ConnexionMySQL.connectDb();
+        String searchText = search.getText();
 
+        try {
+            String sql = "SELECT * FROM Student WHERE Full_Name LIKE ?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, "%" + searchText + "%");
+            rs = pst.executeQuery();
+
+            studentList = FXCollections.observableArrayList();
+
+            while (rs.next()) {
+                int studentID = rs.getInt("Student_ID");
+                String fullName = rs.getString("Full_Name");
+                String birthDate = rs.getString("Date_of_Birth");
+                int fieldID = rs.getInt("Field_ID");
+                String email = rs.getString("Email");
+                int phoneNumber = rs.getInt("Phone_Number");
+
+                Student student = new Student(studentID, fullName, birthDate, fieldID, email, phoneNumber);
+                studentList.add(student);
+            }
+
+            StdTab.setItems(studentList);
+            clearFields(); // Clear the text fields initially
+
+            StdTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    Student selectedStudent = newSelection;
+                    stdID.setText(String.valueOf(selectedStudent.getStudentId()));
+                    fullname.setText(selectedStudent.getFullName());
+                    birth.setText(selectedStudent.getBirth());
+                    fieldID.setText(String.valueOf(selectedStudent.getFieldId()));
+                    mail.setText(selectedStudent.getMail());
+                    phone.setText(String.valueOf(selectedStudent.getPhone()));
+                } else {
+                    clearFields();
+                }
+            });
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
 

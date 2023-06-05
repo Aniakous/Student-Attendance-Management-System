@@ -1,9 +1,11 @@
 package sample;
 
+import java.util.Date;
+
 public class Student {
     private Integer studentId;
     private String fullName;
-    private String birth;
+    private String  birth;
     private Integer fieldId;
     private String mail;
     private Integer phone;
@@ -49,7 +51,7 @@ public class Student {
         this.fullName = fullName;
     }
 
-    public void setBirth(String birth) {
+    public void setBirth(String  birth) {
         this.birth = birth;
     }
 
@@ -57,5 +59,11 @@ public class Student {
         this.fieldId = fieldId;
     }
 
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
+    public void setPhone(Integer phone) {
+        this.phone = phone;
+    }
 }
