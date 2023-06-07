@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="694.0" prefWidth="1111.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
+    <children>
+        <AnchorPane layoutX="24.0" layoutY="180.0" prefHeight="349.0" prefWidth="323.0" style="-fx-background-color: lavender;">
+            <children>
+                <TextField fx:id="fullname" layoutX="114.0" layoutY="144.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
+                <TextField fx:id="mail" layoutX="113.0" layoutY="231.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
+                <TextField fx:id="TchrID" layoutX="114.0" layoutY="64.0" prefHeight="49.0" prefWidth="180.0" promptText="Teacher ID" />
+                <Label layoutX="17.0" layoutY="80.0" prefHeight="17.0" prefWidth="75.0" text="Teacher ID">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="17.0" layoutY="160.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                    </font>
+                </Label>
+                <Label layoutX="21.0" layoutY="247.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <TableView id="StdTab" fx:id="TchrTab" layoutX="417.0" layoutY="261.0" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="585.0">
+            <columns>
+                <TableColumn fx:id="colTchrID" prefWidth="106.0" text="Teacher ID" />
+                <TableColumn fx:id="colName" prefWidth="221.33331298828125" text="Full Name" />
+                <TableColumn fx:id="colMail" prefWidth="257.33331298828125" text="E-Mail" />
+            </columns>
+        </TableView>
+        <AnchorPane layoutX="627.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+            <children>
+                <TextField fx:id="search" layoutX="21.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search Teacher" />
+                <Button fx:id="searchBtn" layoutX="37.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
+                <Label layoutX="38.0" layoutY="26.0" text="Search Teacher By Name">
+                    <font>
+                        <Font name="System Italic" size="11.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="863.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+            <children>
+                <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
+                <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="380.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+            <children>
+                <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
+                <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />
+                <Button layoutX="37.0" layoutY="143.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="DELETE" textFill="#380648" />
+            </children>
+        </AnchorPane>
+      <Label layoutX="123.0" layoutY="69.0" prefHeight="29.0" prefWidth="125.0" text="TEACHER">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="25.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

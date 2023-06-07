@@ -1,0 +1,25 @@
+
+<!-- Your FXML file -->
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController"
+      stylesheets="styles.css">
+
+    <Button text="Click me" styleClass="button" />
+
+</VBox>
+
+
+/* styles.css */
+
+.button {
+    -fx-background-color: #00FF00; /* Green background color */
+    -fx-text-fill: #FFFFFF; /* White text color */
+}
+
+.label {
+    -fx-font-size: 18px; /* Font size of labels */
+}

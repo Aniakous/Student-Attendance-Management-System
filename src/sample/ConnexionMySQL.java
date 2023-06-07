@@ -1,12 +1,8 @@
 package sample;
 
-import java.sql.*;
-
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-
-
 
 public class ConnexionMySQL {
     Connection conn =null;

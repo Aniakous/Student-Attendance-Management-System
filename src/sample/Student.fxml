@@ -10,78 +10,71 @@
 
 <AnchorPane prefHeight="694.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController">
    <children>
-      <AnchorPane layoutX="15.0" layoutY="42.0" prefHeight="590.0" prefWidth="305.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="14.0" layoutY="78.0" prefHeight="538.0" prefWidth="305.0" style="-fx-background-color: lavender;">
          <children>
-            <TextField fx:id="fullname" layoutX="114.0" layoutY="202.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
-            <TextField fx:id="birth" layoutX="114.0" layoutY="282.0" prefHeight="49.0" prefWidth="180.0" promptText="Date Of Birth" />
-            <TextField fx:id="fieldID" layoutX="114.0" layoutY="364.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
-            <TextField fx:id="mail" layoutX="114.0" layoutY="440.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
-            <TextField fx:id="stdID" layoutX="114.0" layoutY="119.0" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
-            <TextField fx:id="phone" layoutX="113.0" layoutY="523.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
+            <TextField fx:id="fullname" layoutX="114.0" layoutY="213.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
+            <TextField fx:id="fieldID" layoutX="114.0" layoutY="301.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
+            <TextField fx:id="mail" layoutX="114.0" layoutY="377.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
+            <TextField fx:id="stdID" layoutX="114.0" layoutY="130.0" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
+            <TextField fx:id="phone" layoutX="113.0" layoutY="460.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
             <Button fx:id="Student" layoutX="59.0" layoutY="33.0" mnemonicParsing="false" onAction="#OnActionStudent" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: #e1bee7;" text="STUDENT" textFill="#380648">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Button>
-            <Label layoutX="17.0" layoutY="135.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
+            <Label layoutX="17.0" layoutY="146.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="218.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
+            <Label layoutX="17.0" layoutY="229.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="298.0" text="Date of Birth">
+            <Label layoutX="21.0" layoutY="317.0" prefHeight="17.0" prefWidth="67.0" text="Field ID">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="21.0" layoutY="380.0" prefHeight="17.0" prefWidth="67.0" text="Field ID">
+            <Label layoutX="20.0" layoutY="393.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="456.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="18.0" layoutY="539.0" text="Phone Number">
+            <Label layoutX="18.0" layoutY="476.0" text="Phone Number">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <TableView id="StdTab" fx:id="StdTab" layoutX="341.0" layoutY="245.0" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="832.0">
+      <TableView id="StdTab" fx:id="StdTab" layoutX="375.0" layoutY="259.0" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="741.0">
         <columns>
-          <TableColumn fx:id="colstdID" prefWidth="75.0" text="Student ID" />
-          <TableColumn fx:id="colName" prefWidth="150.66665649414062" text="Full Name" />
-            <TableColumn fx:id="colBirth" prefWidth="133.333251953125" text="Date Of Birth" />
-            <TableColumn fx:id="colFieldID" prefWidth="88.66668701171875" text="Field ID" />
-            <TableColumn fx:id="colMail" prefWidth="196.6666259765625" text="E-Mail" />
-            <TableColumn fx:id="colPhone" minWidth="0.0" prefWidth="184.0" text="Phone Number" />
+          <TableColumn fx:id="colstdID" prefWidth="100.66665649414062" text="Student ID" />
+          <TableColumn fx:id="colName" prefWidth="158.0" text="Full Name" />
+            <TableColumn fx:id="colFieldID" prefWidth="82.6666259765625" text="Field ID" />
+            <TableColumn fx:id="colMail" prefWidth="202.0" text="E-Mail" />
+            <TableColumn fx:id="colPhone" minWidth="0.0" prefWidth="195.33331298828125" text="Phone Number" />
         </columns>
       </TableView>
-      <AnchorPane layoutX="685.0" layoutY="18.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="682.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
          <children>
-            <TextField fx:id="search" layoutX="22.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search student" />
-            <Button fx:id="searchBtn" layoutX="37.0" layoutY="137.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
-            <Label layoutX="38.0" layoutY="25.0" text="Search Student By Name">
+            <TextField fx:id="search" layoutX="21.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search student" />
+            <Button fx:id="searchBtn" layoutX="37.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
+            <Label layoutX="38.0" layoutY="26.0" text="Search Student By Name">
                <font>
-                  <Font name="System Bold Italic" size="11.0" />
+                  <Font name="System Italic" size="11.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="948.0" layoutY="18.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="946.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
          <children>
             <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
             <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="414.0" layoutY="18.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="414.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
          <children>
             <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
             <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />

@@ -1,19 +1,16 @@
 package sample;
 
-import java.util.Date;
 
 public class Student {
     private Integer studentId;
     private String fullName;
-    private String  birth;
     private Integer fieldId;
     private String mail;
     private Integer phone;
 
-    public Student(Integer studentId, String fullName, String birth, Integer fieldId, String mail, Integer phone) {
+    public Student(Integer studentId, String fullName, Integer fieldId, String mail, Integer phone) {
         this.studentId = studentId;
         this.fullName = fullName;
-        this.birth = birth;
         this.fieldId = fieldId;
         this.mail = mail;
         this.phone = phone;
@@ -25,10 +22,6 @@ public class Student {
 
     public String getFullName() {
         return fullName;
-    }
-
-    public String getBirth() {
-        return birth;
     }
 
     public Integer getFieldId() {
@@ -49,10 +42,6 @@ public class Student {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public void setBirth(String  birth) {
-        this.birth = birth;
     }
 
     public void setFieldId(Integer fieldId) {
