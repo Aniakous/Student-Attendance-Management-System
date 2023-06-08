@@ -76,23 +76,23 @@ public class ModuleController {
     }
 
     private void displayModules() {
-        moduleList = getAllModules();
+        moduleList = getAllModule();
         ModTab.setItems(moduleList);
     }
 
-    public static ObservableList<Module> getAllModules() {
+    public static ObservableList<Module> getAllModule() {
         Connection conn = connectDb();
         ObservableList<Module> list = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Module");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM module");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 list.add(new Module(
-                        rs.getInt("Module_ID"),
+                        Integer.parseInt(rs.getString("Module_ID")),
                         rs.getString("Name"),
-                        rs.getInt("Field_ID")
+                        Integer.parseInt(rs.getString("Field_ID"))
                 ));
             }
         } catch (SQLException e) {
@@ -173,7 +173,7 @@ public class ModuleController {
         String searchText = search.getText();
 
         try {
-            String sql = "SELECT * FROM Module WHERE Name LIKE ?";
+            String sql = "SELECT * FROM module WHERE Name LIKE ?";
             pst = conn.prepareStatement(sql);
             pst.setString(1, "%" + searchText + "%");
             rs = pst.executeQuery();

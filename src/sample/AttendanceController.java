@@ -103,7 +103,7 @@ public class AttendanceController {
         ObservableList<Attendance> list = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Attendance");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM attendance");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

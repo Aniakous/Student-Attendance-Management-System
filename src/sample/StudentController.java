@@ -102,16 +102,16 @@ public class StudentController  {
         ObservableList<Student> list = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Student");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM student");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 list.add(new Student(
-                        Integer.parseInt(rs.getString("studentId")),
-                        rs.getString("fullName"),
-                        Integer.parseInt(rs.getString("fieldId")),
-                        rs.getString("mail"),
-                        Integer.parseInt(rs.getString("phone"))
+                        Integer.parseInt(rs.getString("Student_ID")),
+                        rs.getString("Full_Name"),
+                        Integer.parseInt(rs.getString("Field_ID")),
+                        rs.getString("Email"),
+                        Integer.parseInt(rs.getString("Phone_Number"))
                 ));
             }
         } catch (SQLException e) {

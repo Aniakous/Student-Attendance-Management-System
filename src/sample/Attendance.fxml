@@ -71,7 +71,7 @@
             <children>
                 <TextField fx:id="search" layoutX="21.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search" />
                 <Button layoutX="37.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
-                <Label layoutX="69.0" layoutY="30.0" text="Search By ID">
+                <Label layoutX="43.0" layoutY="29.0" text="Search Attendance By ID">
                     <font>
                         <Font name="System Italic" size="11.0" />
                     </font>
