@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -96,6 +97,43 @@ public class StudentController  {
 
 
 
+    public static ObservableList<Student> getAllUsers() {
+        Connection conn = connectDb();
+        ObservableList<Student> list = FXCollections.observableArrayList();
+
+        try {
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Student");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Student(
+                        Integer.parseInt(rs.getString("studentId")),
+                        rs.getString("fullName"),
+                        Integer.parseInt(rs.getString("fieldId")),
+                        rs.getString("mail"),
+                        Integer.parseInt(rs.getString("phone"))
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return list;
+    }
+
+    private void clearFields() {
+        stdID.clear();
+        fullname.clear();
+        fieldID.clear();
+        mail.clear();
+        phone.clear();
+    }
 
 
     @FXML
@@ -116,7 +154,6 @@ public class StudentController  {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-
 
 
     @FXML
@@ -204,69 +241,14 @@ public class StudentController  {
     }
 
 
-
-
-    @FXML
-    void OnActionStdTab(ActionEvent event) {
-
-    }
-
-    private void clearFields() {
-        stdID.clear();
-        fullname.clear();
-        fieldID.clear();
-        mail.clear();
-        phone.clear();
-    }
-
-    public void setStudentList(ObservableList<Student> studentList) {
-
-        this.studentList = studentList;
-    }
-
-
-    @FXML
-    void OnActionStudent(ActionEvent event) {
-
-    }
-
     public void OnActionExitBtn(ActionEvent actionEvent) {
+
         Platform.exit();
     }
 
-    public void OnActionHome(ActionEvent actionEvent) {
+    public void OnActionHome(ActionEvent actionEvent) throws IOException {
+
+
+        JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
-
-    public static ObservableList<Student> getAllUsers() {
-        Connection conn = connectDb();
-        ObservableList<Student> list = FXCollections.observableArrayList();
-
-        try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Student");
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                list.add(new Student(
-                        Integer.parseInt(rs.getString("studentId")),
-                        rs.getString("fullName"),
-                        Integer.parseInt(rs.getString("fieldId")),
-                        rs.getString("mail"),
-                        Integer.parseInt(rs.getString("phone"))
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return list;
-    }
-
-
-
 }

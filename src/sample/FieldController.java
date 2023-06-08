@@ -7,6 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,8 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Name;
 import static sample.ConnexionMySQL.connectDb;
 
 
@@ -49,11 +53,10 @@ public class FieldController {
 
 
     private ObservableList<Field> fieldList;
-
-    private PreparedStatement pst;
-
-    private Connection conn;
-
+    private int index = -1;
+    private Connection conn = null;
+    private ResultSet rs = null;
+    private PreparedStatement pst = null;
 
     public void initialize() {
         Platform.runLater(() -> FieldID.requestFocus());
@@ -62,8 +65,8 @@ public class FieldController {
     }
 
     private void initializeTableColumns() {
-        ColFldID.setCellValueFactory(new PropertyValueFactory<>("FieldIDProperty"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("NameProperty"));
+        ColFldID.setCellValueFactory(new PropertyValueFactory<>("FieldID"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("FldName"));
     }
 
     private void displayFields() {
@@ -82,7 +85,7 @@ public class FieldController {
             while (rs.next()) {
                 list.add(new Field(
                         Integer.parseInt(rs.getString("FieldID")),
-                        rs.getString("Name")
+                        rs.getString("FldName")
                 ));
             }
         } catch (SQLException e) {
@@ -110,11 +113,11 @@ public class FieldController {
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Module Name VALUES (?)";
+        String sql = "INSERT INTO Field (Name) VALUES (?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, FldName.getText());
-            pst.executeUpdate();
+            pst.execute();
 
             JOptionPane.showMessageDialog(null, "Field added");
             clearFields();
@@ -128,6 +131,17 @@ public class FieldController {
     @FXML
     void OnActionDeleteBtn(ActionEvent event) {
 
+        conn = connectDb();
+        String sql = "DELETE FROM Field WHERE Field_ID = ?";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, FieldID.getText());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Field deleted");
+            clearFields();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     @FXML
@@ -137,8 +151,10 @@ public class FieldController {
     }
 
     @FXML
-    void OnActionHome(ActionEvent event) {
+    void OnActionHome(ActionEvent event) throws IOException {
 
+
+        JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
 
     @FXML
@@ -149,11 +165,62 @@ public class FieldController {
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
 
+        conn = connectDb();
+        String searchText = search.getText();
+
+        try {
+            String sql = "SELECT * FROM Field WHERE Name LIKE ?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, "%" + searchText + "%");
+            rs = pst.executeQuery();
+
+            fieldList = FXCollections.observableArrayList();
+
+            while (rs.next()) {
+                int FieldID = rs.getInt("Field_ID");
+                String Name = rs.getString("Name");
+
+                Field field = new Field(FieldID, Name);
+                fieldList.add(field);
+            }
+
+            FldTab.setItems(fieldList);
+            clearFields();
+
+            FldTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    Field selectedField = newSelection;
+                    FieldID.setText(String.valueOf(selectedField.getFieldID()));
+                    FldName.setText(selectedField.getName());
+                } else {
+                    clearFields();
+                }
+            });
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
 
+        try{
+            conn = ConnexionMySQL.connectDb();
+            String value1 = FieldID.getText();
+            String value2 = FldName.getText();
+
+            String sql = "update Field set Field_ID='"+value1+"',Name = '"+value2+ "' WHERE Field_ID = '"+value1+"'";
+
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null,"Field updated");
+            clearFields();
+        }catch (Exception e){
+
+            JOptionPane.showMessageDialog(null,e);
+
+        }
     }
 
 }

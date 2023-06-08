@@ -7,6 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -134,26 +136,16 @@ public class ModuleController {
 
     @FXML
     void OnActionDeleteBtn(ActionEvent event) {
-        Module selectedModule = ModTab.getSelectionModel().getSelectedItem();
-
-        if (selectedModule != null) {
-            int moduleId = selectedModule.getModID();
-            String sql = "DELETE FROM Module WHERE ModID = ?";
-
-            try {
-                conn = connectDb();
-                pst = conn.prepareStatement(sql);
-                pst.setInt(1, moduleId);
-                pst.execute();
-
-                JOptionPane.showMessageDialog(null, "Module deleted");
-                displayModules();
-                clearFields();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a module to delete");
+        conn = connectDb();
+        String sql = "DELETE FROM Module WHERE Module_ID = ?";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, ModID.getText());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Module deleted");
+            clearFields();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
@@ -164,9 +156,10 @@ public class ModuleController {
         Platform.exit();
     }
 
-    @FXML
-    void OnActionHome(ActionEvent event) {
+    public void OnActionHome(ActionEvent actionEvent) throws IOException {
 
+
+        JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
 
     @FXML
@@ -217,31 +210,25 @@ public class ModuleController {
 
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
-            Module selectedModule = ModTab.getSelectionModel().getSelectedItem();
+        try {
+            conn = ConnexionMySQL.connectDb();
+            String value1 = ModID.getText();
+            String value2 = ModName.getText();
+            String value3 = FieldID.getText();
 
-            if (selectedModule != null) {
-                try {
-                    conn = connectDb();
-                    String modID = ModID.getText();
-                    String name = ModName.getText();
-                    String fieldID = FieldID.getText();
 
-                    String sql = "UPDATE Module SET Name = ?, FieldID = ? WHERE ModID = ?";
-                    pst = conn.prepareStatement(sql);
-                    pst.setString(1, name);
-                    pst.setString(2, fieldID);
-                    pst.setString(3, modID);
-                    pst.executeUpdate();
+            String sql = "update Module set Module_ID='" + value1 + "',Name = '" + value2 + "', Field_ID = '" + value3  + "' WHERE Module_ID = '" + value1 + "'";
 
-                    JOptionPane.showMessageDialog(null, "Module updated");
-                    displayModules();
-                    clearFields();
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, e);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a module to update");
-            }
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Module updated");
+            clearFields();
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, e);
+
         }
+    }
 
     }

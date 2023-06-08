@@ -7,6 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import static sample.ConnexionMySQL.connectDb;
 
 public class TeacherController {
+
 
     @FXML
     private Button Exit;
@@ -38,7 +41,13 @@ public class TeacherController {
     private TableColumn<Teacher, Integer> colTchrID;
 
     @FXML
+    private TableColumn<Teacher, String> ColPhone;
+
+    @FXML
     private TextField fullname;
+
+    @FXML
+    private TextField Phone;
 
     @FXML
     private Button home;
@@ -68,10 +77,11 @@ public class TeacherController {
         colTchrID.setCellValueFactory(new PropertyValueFactory<>("TchrId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         colMail.setCellValueFactory(new PropertyValueFactory<>("mail"));
+        ColPhone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
     }
 
     private void displayTeachers() {
-        teacherList = getAllTeachers();
+        ObservableList<Teacher> Teachers = getAllTeachers();
         TchrTab.setItems(teacherList);
     }
 
@@ -87,7 +97,8 @@ public class TeacherController {
                 list.add(new Teacher(
                         Integer.parseInt(rs.getString("teacherId")),
                         rs.getString("fullName"),
-                        rs.getString("email")
+                        rs.getString("email"),
+                        rs.getString("Phone")
                 ));
             }
         } catch (SQLException e) {
@@ -107,16 +118,18 @@ public class TeacherController {
         TchrID.clear();
         fullname.clear();
         mail.clear();
+        Phone.clear();
     }
 
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Teacher(Full_Name, Email) VALUES (?, ?)";
+        String sql = "INSERT INTO Teacher(Full_Name, Email,Phone_Number) VALUES (?, ?,?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, fullname.getText());
             pst.setString(2, mail.getText());
+            pst.setString(3, Phone.getText());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Teacher added");
@@ -128,93 +141,98 @@ public class TeacherController {
 
     @FXML
     void OnActionDeleteBtn(ActionEvent event) {
-        Teacher selectedTeacher = TchrTab.getSelectionModel().getSelectedItem();
-
-        if (selectedTeacher != null) {
-            int teacherId = selectedTeacher.getTchrID();
-            String sql = "DELETE FROM Teacher WHERE teacherId = ?";
-
-            try {
-                conn = connectDb();
-                pst = conn.prepareStatement(sql);
-                pst.setInt(1, teacherId);
-                pst.execute();
-
-                JOptionPane.showMessageDialog(null, "Teacher deleted");
-                displayTeachers();
-                clearFields();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Please select a teacher to delete");
+        conn = connectDb();
+        String sql = "DELETE FROM Teacher WHERE Teacher_ID = ?";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, TchrID.getText());
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Teacher deleted");
+            clearFields();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
 
-            String searchText = search.getText();
+        conn = connectDb();
+        String searchText = search.getText();
 
-            if (!searchText.isEmpty()) {
-                ObservableList<Teacher> filteredList = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM Teacher WHERE Full_Name LIKE ?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, "%" + searchText + "%");
+            rs = pst.executeQuery();
 
-                for (Teacher teacher : teacherList) {
-                    if (teacher.getFullName().toLowerCase().contains(searchText.toLowerCase()) ||
-                            teacher.getMail().toLowerCase().contains(searchText.toLowerCase())) {
-                        filteredList.add(teacher);
-                    }
-                }
+            teacherList = FXCollections.observableArrayList();
 
-                if (filteredList.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "No matching teachers found");
-                }
+            while (rs.next()) {
+                int TchrID = rs.getInt("Teacher_ID");
+                String fullName = rs.getString("Full_Name");
+                String mail = rs.getString("Email");
+                String phone = rs.getString("Phone_Number");
 
-                TchrTab.setItems(filteredList);
-            } else {
-                JOptionPane.showMessageDialog(null, "Please enter a search query to find teachers");
-                displayTeachers();
+                Teacher teacher = new Teacher(TchrID, fullName, mail, phone);
+                teacherList.add(teacher);
             }
 
+            TchrTab.setItems(teacherList);
+            clearFields();
+
+            TchrTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+                if (newSelection != null) {
+                    Teacher selectedTeacher = newSelection;
+                    TchrID.setText(String.valueOf(selectedTeacher.getTchrID()));
+                    fullname.setText(selectedTeacher.getFullName());
+                    mail.setText(selectedTeacher.getMail());
+                    Phone.setText(String.valueOf(selectedTeacher.getPhone()));
+                } else {
+                    clearFields();
+                }
+            });
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
-            Teacher selectedTeacher = TchrTab.getSelectionModel().getSelectedItem();
 
-            if (selectedTeacher != null) {
-                int teacherId = selectedTeacher.getTchrID();
-                String sql = "UPDATE Teacher SET Full_Name = ?, Email = ? WHERE teacherId = ?";
 
-                try {
-                    conn = connectDb();
-                    pst = conn.prepareStatement(sql);
-                    pst.setString(1, fullname.getText());
-                    pst.setString(2, mail.getText());
-                    pst.setInt(3, teacherId);
-                    pst.execute();
+        try{
+            conn = ConnexionMySQL.connectDb();
+            String value1 = TchrID.getText();
+            String value2 = fullname.getText();
+            String value3 = mail.getText();
+            String value4 = Phone.getText();
 
-                    JOptionPane.showMessageDialog(null, "Teacher updated");
-                    displayTeachers();
-                    clearFields();
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, e);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a teacher to update");
-            }
+            String sql = "update Teacher set Teacher_ID='"+value1+"',Full_Name = '"+value2+"', Email = '"+value3+"' , Phone_Number = '"+value4+"' WHERE Teacher_ID = '"+value1+"'";
+
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null,"Teacher updated");
+            clearFields();
+        }catch (Exception e){
+
+            JOptionPane.showMessageDialog(null,e);
+
+        }
         }
 
     @FXML
-    void OnActionExitBtn(ActionEvent event) {
+    void OnActionExitBtn(ActionEvent event)
+    {
         Platform.exit();
     }
 
-    @FXML
-    void OnActionHome(ActionEvent event) {
+    public void OnActionHome(ActionEvent actionEvent) throws IOException {
 
+
+        JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
-
     @FXML
     void OnActionStdTab(ActionEvent event) {
 

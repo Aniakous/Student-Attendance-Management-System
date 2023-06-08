@@ -10,45 +10,41 @@
 
 <AnchorPane prefHeight="694.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController">
    <children>
-      <AnchorPane layoutX="14.0" layoutY="78.0" prefHeight="538.0" prefWidth="305.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="24.0" layoutY="140.0" prefHeight="461.0" prefWidth="321.0" style="-fx-background-color: lavender;">
          <children>
-            <TextField fx:id="fullname" layoutX="114.0" layoutY="213.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
-            <TextField fx:id="fieldID" layoutX="114.0" layoutY="301.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
-            <TextField fx:id="mail" layoutX="114.0" layoutY="377.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
-            <TextField fx:id="stdID" layoutX="114.0" layoutY="130.0" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
-            <TextField fx:id="phone" layoutX="113.0" layoutY="460.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
-            <Button fx:id="Student" layoutX="59.0" layoutY="33.0" mnemonicParsing="false" onAction="#OnActionStudent" prefHeight="49.0" prefWidth="187.0" style="-fx-background-color: #e1bee7;" text="STUDENT" textFill="#380648">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font></Button>
-            <Label layoutX="17.0" layoutY="146.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
+            <TextField fx:id="fullname" layoutX="114.0" layoutY="130.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
+            <TextField fx:id="fieldID" layoutX="114.0" layoutY="218.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
+            <TextField fx:id="mail" layoutX="114.0" layoutY="294.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
+            <TextField fx:id="stdID" layoutX="114.0" layoutY="47.0" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
+            <TextField fx:id="phone" layoutX="113.0" layoutY="377.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
+            <Label layoutX="17.0" layoutY="63.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="229.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
+            <Label layoutX="17.0" layoutY="146.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="21.0" layoutY="317.0" prefHeight="17.0" prefWidth="67.0" text="Field ID">
+            <Label layoutX="21.0" layoutY="234.0" prefHeight="17.0" prefWidth="67.0" text="Field ID">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="20.0" layoutY="393.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
+            <Label layoutX="20.0" layoutY="310.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="18.0" layoutY="476.0" text="Phone Number">
+            <Label layoutX="18.0" layoutY="393.0" text="Phone Number">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <TableView id="StdTab" fx:id="StdTab" layoutX="375.0" layoutY="259.0" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="741.0">
+      <TableView id="StdTab" fx:id="StdTab" layoutX="375.0" layoutY="259.0"  prefHeight="410.0" prefWidth="741.0">
         <columns>
           <TableColumn fx:id="colstdID" prefWidth="100.66665649414062" text="Student ID" />
           <TableColumn fx:id="colName" prefWidth="158.0" text="Full Name" />
@@ -81,5 +77,10 @@
             <Button layoutX="37.0" layoutY="143.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="DELETE" textFill="#380648" />
          </children>
       </AnchorPane>
+      <Label fx:id="Student" layoutX="122.0" layoutY="64.0" prefHeight="28.0" prefWidth="125.0" text="STUDENT">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
