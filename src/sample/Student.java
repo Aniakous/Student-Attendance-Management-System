@@ -6,9 +6,9 @@ public class Student {
     private String fullName;
     private Integer fieldId;
     private String mail;
-    private Integer phone;
+    private String phone;
 
-    public Student(Integer studentId, String fullName, Integer fieldId, String mail, Integer phone) {
+    public Student(Integer studentId, String fullName, Integer fieldId, String mail, String phone) {
         this.studentId = studentId;
         this.fullName = fullName;
         this.fieldId = fieldId;
@@ -32,7 +32,7 @@ public class Student {
         return mail;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -52,7 +52,7 @@ public class Student {
         this.mail = mail;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 }

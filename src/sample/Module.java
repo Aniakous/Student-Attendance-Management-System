@@ -6,9 +6,9 @@ public class Module {
     private Integer FieldID;
 
     public Module(Integer ModID, String Name, Integer FieldID) {
-        ModID = ModID;
-        Name = Name;
-        FieldID = FieldID;
+        this.ModID = ModID;
+        this.Name = Name;
+        this.FieldID = FieldID;
     }
 
     public Integer getModID() {

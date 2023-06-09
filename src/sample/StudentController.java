@@ -83,7 +83,6 @@ public class StudentController  {
     }
 
 
-
     private void displayStudents() {
         ObservableList<Student> students = getAllUsers();
         StdTab.setItems(students);
@@ -111,7 +110,7 @@ public class StudentController  {
                         rs.getString("Full_Name"),
                         Integer.parseInt(rs.getString("Field_ID")),
                         rs.getString("Email"),
-                        Integer.parseInt(rs.getString("Phone_Number"))
+                        rs.getString("Phone_Number")
                 ));
             }
         } catch (SQLException e) {
@@ -214,7 +213,7 @@ public class StudentController  {
                 String fullName = rs.getString("Full_Name");
                 int fieldID = rs.getInt("Field_ID");
                 String email = rs.getString("Email");
-                int phoneNumber = rs.getInt("Phone_Number");
+                String phoneNumber = rs.getString("Phone_Number");
 
                 Student student = new Student(studentID, fullName, fieldID, email, phoneNumber);
                 studentList.add(student);

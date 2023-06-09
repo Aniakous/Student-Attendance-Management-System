@@ -10,34 +10,28 @@
 
 <AnchorPane prefHeight="694.0" prefWidth="1317.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AttendanceController">
     <children>
-        <AnchorPane layoutX="27.0" layoutY="84.0" prefHeight="596.0" prefWidth="305.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="27.0" layoutY="155.0" prefHeight="465.0" prefWidth="305.0" style="-fx-background-color: lavender;">
             <children>
-                <TextField fx:id="TchrID" layoutX="114.0" layoutY="208.0" prefHeight="49.0" prefWidth="180.0" promptText="Teacher ID" />
-                <TextField fx:id="Semester" layoutX="114.0" layoutY="290.0" prefHeight="49.0" prefWidth="180.0" promptText="Semester" />
-                <TextField fx:id="ModID" layoutX="114.0" layoutY="371.0" prefHeight="49.0" prefWidth="180.0" promptText="Module ID" />
+                <TextField fx:id="TchrCIN" layoutX="114.0" layoutY="208.0" prefHeight="49.0" prefWidth="180.0" promptText="Teacher CIN" />
+                <TextField fx:id="ModID" layoutX="114.0" layoutY="297.0" prefHeight="49.0" prefWidth="180.0" promptText="Module ID" />
                 <TextField fx:id="stdID" layoutX="114.0" layoutY="123.0" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
-                <TextField fx:id="Status" layoutX="113.0" layoutY="454.0" prefHeight="49.0" prefWidth="180.0" promptText="Status" />
+                <TextField fx:id="Status" layoutX="113.0" layoutY="380.0" prefHeight="49.0" prefWidth="180.0" promptText="Status" />
                 <Label layoutX="17.0" layoutY="139.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="17.0" layoutY="224.0" prefHeight="17.0" prefWidth="75.0" text="Teacher ID">
+                <Label layoutX="17.0" layoutY="224.0" prefHeight="17.0" prefWidth="75.0" text="Teacher CIN">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="23.0" layoutY="306.0" prefHeight="17.0" prefWidth="67.0" text="Semester">
+                <Label layoutX="21.0" layoutY="313.0" prefHeight="17.0" prefWidth="67.0" text="Module ID">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="21.0" layoutY="387.0" prefHeight="17.0" prefWidth="67.0" text="Module ID">
-                    <font>
-                        <Font name="System Bold Italic" size="12.0" />
-                    </font>
-                </Label>
-                <Label layoutX="31.0" layoutY="470.0" text="Status">
+                <Label layoutX="31.0" layoutY="396.0" text="Status">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
@@ -48,23 +42,15 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="Date" layoutX="114.0" layoutY="530.0" prefHeight="49.0" prefWidth="180.0" promptText="Attendance Date" />
-            <Label layoutX="35.0" layoutY="539.0" text="Date">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
             </children>
         </AnchorPane>
-        <TableView id="StdTab" fx:id="AttendanceTab" layoutX="355.0" layoutY="260.0" prefHeight="410.0" prefWidth="871.0">
+        <TableView id="StdTab" fx:id="AttendanceTab" layoutX="453.0" layoutY="270.0" prefHeight="369.0" prefWidth="657.0">
             <columns>
-                <TableColumn fx:id="ColAttID" prefWidth="88.66668701171875" text="Attendance ID" />
-                <TableColumn fx:id="ColStdID" prefWidth="103.33328247070312" text="Student ID" />
-                <TableColumn fx:id="ColTchrID" prefWidth="122.0" text="Teacher ID" />
-                <TableColumn fx:id="Colsmstr" prefWidth="124.0" text="Semester" />
-                <TableColumn fx:id="ColModID" minWidth="0.0" prefWidth="116.0" text="Module ID" />
-            <TableColumn fx:id="Colstts" prefWidth="134.6666259765625" text="Status" />
-            <TableColumn fx:id="ColDate" prefWidth="180.66670735677087" text="Attendance Date" />
+                <TableColumn fx:id="ColAttID" prefWidth="117.33331298828125" text="Attendance ID" />
+                <TableColumn fx:id="ColStdID" prefWidth="101.33334350585938" text="Student ID" />
+                <TableColumn fx:id="ColTchrCIN" prefWidth="158.66668701171875" text="Teacher CIN" />
+                <TableColumn fx:id="ColModID" minWidth="0.0" prefWidth="104.0" text="Module ID" />
+            <TableColumn fx:id="Colstts" prefWidth="173.33333333333337" text="Status" />
             </columns>
         </TableView>
         <AnchorPane layoutX="682.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
@@ -91,7 +77,7 @@
                 <Button layoutX="37.0" layoutY="143.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="DELETE" textFill="#380648" />
             </children>
         </AnchorPane>
-      <Label layoutX="99.0" layoutY="28.0" text="ATTENDANCE">
+      <Label layoutX="99.0" layoutY="72.0" text="ATTENDANCE">
          <font>
             <Font name="Times New Roman Bold Italic" size="24.0" />
          </font>

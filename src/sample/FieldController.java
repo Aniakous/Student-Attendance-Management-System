@@ -7,7 +7,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,8 +16,6 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import static com.sun.xml.internal.ws.policy.sourcemodel.wspolicy.XmlToken.Name;
 import static sample.ConnexionMySQL.connectDb;
 
 
@@ -52,40 +49,43 @@ public class FieldController {
     private Button searchBtn;
 
 
-    private ObservableList<Field> fieldList;
-    private int index = -1;
-    private Connection conn = null;
-    private ResultSet rs = null;
-    private PreparedStatement pst = null;
-
     public void initialize() {
         Platform.runLater(() -> FieldID.requestFocus());
         initializeTableColumns();
         displayFields();
     }
 
+    private ObservableList<Field> fieldList;
+    private int index = -1;
+    private Connection conn = null;
+    private ResultSet rs = null;
+    private PreparedStatement pst = null;
+
+
+
     private void initializeTableColumns() {
         ColFldID.setCellValueFactory(new PropertyValueFactory<>("FieldID"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("FldName"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
     }
 
     private void displayFields() {
-        ObservableList<Field> fieldList = getAllFields();
-        FldTab.setItems(fieldList);
+        ObservableList<Field> fields = getAllFields();
+        FldTab.setItems(fields);
     }
 
-    private ObservableList<Field> getAllFields() {
+
+    public static ObservableList<Field> getAllFields() {
         Connection conn = connectDb();
         ObservableList<Field> list = FXCollections.observableArrayList();
 
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Field");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM field");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 list.add(new Field(
-                        Integer.parseInt(rs.getString("FieldID")),
-                        rs.getString("FldName")
+                        rs.getInt("Field_ID"),
+                        rs.getString("Name")
                 ));
             }
         } catch (SQLException e) {
@@ -101,19 +101,22 @@ public class FieldController {
         return list;
     }
 
+
+
+
     private void clearFields() {
         FieldID.clear();
         FldName.clear();
     }
 
-    public void setFieldList(ObservableList<Field> fieldList) {
+    public void setfieldList(ObservableList<Field> fieldList) {
         this.fieldList = fieldList;
     }
 
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Field (Name) VALUES (?)";
+        String sql = "INSERT INTO Field Name VALUES (?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, FldName.getText());
@@ -178,9 +181,9 @@ public class FieldController {
 
             while (rs.next()) {
                 int FieldID = rs.getInt("Field_ID");
-                String Name = rs.getString("Name");
+                String FldName = rs.getString("Name");
 
-                Field field = new Field(FieldID, Name);
+                Field field = new Field(FieldID, FldName);
                 fieldList.add(field);
             }
 

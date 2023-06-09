@@ -8,14 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1184.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
+<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1184.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
     <children>
         <AnchorPane layoutX="24.0" layoutY="150.0" prefHeight="429.0" prefWidth="323.0" style="-fx-background-color: lavender;">
             <children>
                 <TextField fx:id="fullname" layoutX="114.0" layoutY="144.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
                 <TextField fx:id="mail" layoutX="113.0" layoutY="231.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
-                <TextField fx:id="TchrID" layoutX="114.0" layoutY="64.0" prefHeight="49.0" prefWidth="180.0" promptText="Teacher ID" />
-                <Label layoutX="17.0" layoutY="80.0" prefHeight="17.0" prefWidth="75.0" text="Teacher ID">
+                <TextField fx:id="CIN" layoutX="114.0" layoutY="64.0" prefHeight="49.0" prefWidth="180.0" promptText="CIN" />
+                <TextField fx:id="Phone" layoutX="113.0" layoutY="328.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
+
+                <Label layoutX="17.0" layoutY="80.0" prefHeight="17.0" prefWidth="75.0" text="Teacher CIN">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
@@ -30,8 +32,7 @@
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-            <TextField fx:id="Phone" layoutX="114.0" layoutY="328.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
-            <Label layoutX="14.0" layoutY="344.0" prefHeight="17.0" prefWidth="97.0" text="Phone Number">
+            <Label layoutX="14.0" layoutY="344.0" prefHeight="17.0" prefWidth="95.0" text="Phone Number">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
@@ -40,7 +41,7 @@
         </AnchorPane>
         <TableView id="StdTab" fx:id="TchrTab" layoutX="386.0" layoutY="262.0" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="767.0">
             <columns>
-                <TableColumn fx:id="colTchrID" prefWidth="85.33331298828125" text="Teacher ID" />
+                <TableColumn fx:id="colTchrCIN" prefWidth="85.33331298828125" text="Teacher CIN" />
                 <TableColumn fx:id="colName" prefWidth="200.00003051757812" text="Full Name" />
                 <TableColumn fx:id="colMail" prefWidth="261.33331298828125" text="E-Mail" />
             <TableColumn fx:id="ColPhone" prefWidth="218.66670735677087" text="Phone Number" />

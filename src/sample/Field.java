@@ -6,11 +6,11 @@ public class Field {
     private String Name;
 
     public Field(Integer FieldID, String Name) {
-        FieldID = FieldID;
-        Name = Name;
+        this.FieldID = FieldID;
+        this.Name = Name;
     }
 
-    public Integer getFieldID() {
+    public int getFieldID() {
         return FieldID;
     }
 
@@ -19,10 +19,10 @@ public class Field {
     }
 
     public void setFieldID(Integer FieldID) {
-        FieldID = FieldID;
+        this.FieldID = FieldID;
     }
 
     public void setName(String Name) {
-        Name = Name;
+        this.Name = Name;
     }
 }

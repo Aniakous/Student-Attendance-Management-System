@@ -26,10 +26,10 @@
                 </Label>
             </children>
         </AnchorPane>
-        <TableView id="StdTab" fx:id="FldTab" layoutX="415.0" layoutY="297.0" onSort="#OnActionFldTab" prefHeight="326.0" prefWidth="330.0">
+        <TableView id="StdTab" fx:id="FldTab" layoutX="417.0" layoutY="325.0" onSort="#OnActionFldTab" prefHeight="283.0" prefWidth="407.0">
             <columns>
-                <TableColumn fx:id="ColFldID" prefWidth="130.6666259765625" text="Field ID" />
-                <TableColumn fx:id="colName" prefWidth="196.66665649414062" text="Name" />
+                <TableColumn fx:id="ColFldID" prefWidth="152.66665649414062" text="Field ID" />
+                <TableColumn fx:id="colName" prefWidth="253.33331298828125" text="Name" />
             </columns>
         </TableView>
         <AnchorPane layoutX="86.0" layoutY="423.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
@@ -43,13 +43,13 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="625.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="648.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
             <children>
                 <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
                 <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="394.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="408.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
             <children>
                 <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
                 <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />

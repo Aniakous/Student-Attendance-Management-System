@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2023 at 05:20 PM
+-- Generation Time: Jun 08, 2023 at 11:36 PM
 -- Server version: 5.6.15-log
 -- PHP Version: 5.4.24
 
@@ -29,13 +29,21 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `attendance` (
   `Attendance_ID` int(55) NOT NULL,
   `Student_ID` int(55) NOT NULL,
-  `Teacher_ID` varchar(50) NOT NULL,
+  `Teacher_ID` int(50) NOT NULL,
   `Semester` varchar(50) NOT NULL,
-  `Module` varchar(50) NOT NULL,
-  `Status` int(55) NOT NULL,
-  `Date` date NOT NULL,
+  `Module_ID` int(50) NOT NULL,
+  `Status` varchar(55) NOT NULL,
+  `Date` varchar(55) NOT NULL,
   PRIMARY KEY (`Attendance_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `attendance`
+--
+
+INSERT INTO `attendance` (`Attendance_ID`, `Student_ID`, `Teacher_ID`, `Semester`, `Module_ID`, `Status`, `Date`) VALUES
+(2, 3, 5, 'ff', 77, 'ee', '34'),
+(3, 8, 9, 'ss', 33, 'rr', '5');
 
 -- --------------------------------------------------------
 
@@ -44,9 +52,20 @@ CREATE TABLE IF NOT EXISTS `attendance` (
 --
 
 CREATE TABLE IF NOT EXISTS `field` (
-  `Field_ID` int(99) NOT NULL,
-  `Name` varchar(99) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `Field_ID` int(99) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(99) NOT NULL,
+  PRIMARY KEY (`Field_ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `field`
+--
+
+INSERT INTO `field` (`Field_ID`, `Name`) VALUES
+(1, 'gg'),
+(2, 'ffffffffffffff'),
+(4, 'gg'),
+(5, 'ee');
 
 -- --------------------------------------------------------
 
@@ -55,12 +74,22 @@ CREATE TABLE IF NOT EXISTS `field` (
 --
 
 CREATE TABLE IF NOT EXISTS `module` (
-  `Module_ID` int(99) NOT NULL,
+  `Module_ID` int(99) NOT NULL AUTO_INCREMENT,
   `Name` varchar(99) NOT NULL,
-  `Teacher_ID` int(99) NOT NULL,
   `Field_ID` int(99) NOT NULL,
-  `Semester` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`Module_ID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `module`
+--
+
+INSERT INTO `module` (`Module_ID`, `Name`, `Field_ID`) VALUES
+(3, 'hhhh', 1111),
+(4, 'souka', 2),
+(5, 'fou', 5),
+(6, 'gg', 66),
+(7, 'ff', 55);
 
 -- --------------------------------------------------------
 
@@ -69,14 +98,22 @@ CREATE TABLE IF NOT EXISTS `module` (
 --
 
 CREATE TABLE IF NOT EXISTS `student` (
-  `Student_ID` int(99) NOT NULL,
+  `Student_ID` int(99) NOT NULL AUTO_INCREMENT,
   `Full_Name` varchar(99) NOT NULL,
-  `Date_of_Birth` int(11) NOT NULL,
   `Field_ID` int(55) NOT NULL,
   `Email` varchar(99) NOT NULL,
   `Phone_Number` int(99) NOT NULL,
   PRIMARY KEY (`Student_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`Student_ID`, `Full_Name`, `Field_ID`, `Email`, `Phone_Number`) VALUES
+(5, 'ttttt', 3333, 'bbbbbbbbbb', 22222222),
+(6, 'jjjjj', 66666666, 'ggggggg', 33333333),
+(10, 'ttttt', 4444, 'hhhhh', 999999);
 
 -- --------------------------------------------------------
 
@@ -85,13 +122,19 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 CREATE TABLE IF NOT EXISTS `teacher` (
-  `Teacher_ID` int(99) NOT NULL,
+  `Teacher_ID` int(99) NOT NULL AUTO_INCREMENT,
   `Full_Name` varchar(99) NOT NULL,
-  `E-mail` int(99) NOT NULL,
-  `Module` int(99) NOT NULL,
-  `Status` int(99) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Phone_Number` varchar(55) NOT NULL,
   PRIMARY KEY (`Teacher_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `teacher`
+--
+
+INSERT INTO `teacher` (`Teacher_ID`, `Full_Name`, `Email`, `Phone_Number`) VALUES
+(2, 'gggjjjj', 'ttttt', '989898');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

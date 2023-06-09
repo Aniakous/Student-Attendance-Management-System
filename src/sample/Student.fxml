@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController">
+<AnchorPane prefHeight="694.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/19.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController">
    <children>
-      <AnchorPane layoutX="24.0" layoutY="140.0" prefHeight="461.0" prefWidth="321.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="34.0" layoutY="140.0" prefHeight="461.0" prefWidth="321.0" style="-fx-background-color: lavender;">
          <children>
             <TextField fx:id="fullname" layoutX="114.0" layoutY="130.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
             <TextField fx:id="fieldID" layoutX="114.0" layoutY="218.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
@@ -44,7 +44,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <TableView id="StdTab" fx:id="StdTab" layoutX="375.0" layoutY="259.0"  prefHeight="410.0" prefWidth="741.0">
+      <TableView id="StdTab" fx:id="StdTab" layoutX="411.0" layoutY="262.0" prefHeight="399.0" prefWidth="741.0">
         <columns>
           <TableColumn fx:id="colstdID" prefWidth="100.66665649414062" text="Student ID" />
           <TableColumn fx:id="colName" prefWidth="158.0" text="Full Name" />
@@ -64,20 +64,20 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="946.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="941.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
          <children>
             <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
             <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="414.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+      <AnchorPane layoutX="419.0" layoutY="28.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
          <children>
             <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
             <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />
             <Button layoutX="37.0" layoutY="143.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="DELETE" textFill="#380648" />
          </children>
       </AnchorPane>
-      <Label fx:id="Student" layoutX="122.0" layoutY="64.0" prefHeight="28.0" prefWidth="125.0" text="STUDENT">
+      <Label fx:id="Student" layoutX="132.0" layoutY="53.0" prefHeight="28.0" prefWidth="125.0" text="STUDENT">
          <font>
             <Font name="Times New Roman Bold Italic" size="24.0" />
          </font>

@@ -1,22 +1,22 @@
 package sample;
 
 public class Teacher {
-    private Integer TchrID;
+    private String TchrCIN;
     private String fullName;
     private String mail;
     private String Phone;
 
 
-    public Teacher(Integer TchrID, String fullName, String mail, String Phone) {
-        this.TchrID = TchrID;
+    public Teacher(String TchrCIN, String fullName, String mail, String Phone) {
+        this.TchrCIN = TchrCIN;
         this.fullName = fullName;
         this.mail = mail;
         this.Phone = Phone;
     }
 
 
-    public Integer getTchrID() {
-        return TchrID;
+    public String getTchrCIN() {
+        return TchrCIN;
     }
 
     public String getFullName() {
@@ -33,8 +33,8 @@ public class Teacher {
 
 
 
-    public void setTchrID(Integer TchrID) {
-        TchrID = TchrID;
+    public void setTchrCIN(String TchrCIN) {
+        this.TchrCIN = TchrCIN;
     }
 
     public void setFullName(String fullName) {

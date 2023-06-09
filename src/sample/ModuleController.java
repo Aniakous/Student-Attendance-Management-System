@@ -7,7 +7,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.collections.ObservableList;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,18 +55,17 @@ public class ModuleController {
     @FXML
     private Button searchBtn;
 
-
+    public void initialize() {
+        Platform.runLater(() -> ModID.requestFocus());
+        initializeTableColumns();
+        displayModules();
+    }
     private ObservableList<Module> moduleList;
     private int index = -1;
     private Connection conn = null;
     private ResultSet rs = null;
     private PreparedStatement pst = null;
 
-    public void initialize() {
-        Platform.runLater(() -> ModID.requestFocus());
-        initializeTableColumns();
-        displayModules();
-    }
 
     private void initializeTableColumns() {
         ColModID.setCellValueFactory(new PropertyValueFactory<>("ModID"));
@@ -76,11 +74,11 @@ public class ModuleController {
     }
 
     private void displayModules() {
-        moduleList = getAllModule();
-        ModTab.setItems(moduleList);
+        ObservableList<Module> modules = getAllModules();
+        ModTab.setItems(modules);
     }
 
-    public static ObservableList<Module> getAllModule() {
+    public static ObservableList<Module> getAllModules() {
         Connection conn = connectDb();
         ObservableList<Module> list = FXCollections.observableArrayList();
 
@@ -108,13 +106,11 @@ public class ModuleController {
         return list;
     }
 
-
     private void clearFields() {
         ModID.clear();
         ModName.clear();
         FieldID.clear();
     }
-
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
@@ -164,8 +160,9 @@ public class ModuleController {
 
     @FXML
     void OnActionModTab(ActionEvent event) {
-
     }
+
+
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {

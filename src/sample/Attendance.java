@@ -1,26 +1,22 @@
 package sample;
 
-import java.util.Date;
 
 public class Attendance {
 
     private int attId;
     private int stdID;
-    private int tchrId;
-    private String sem;
+    private String TchrCIN;
     private int modId;
     private String stts;
-    private String date;
 
 
-    public Attendance(int attId, int stdID, int tchrId, String sem, int modId, String stts, String date) {
+    public Attendance(int attId, int stdID, String TchrCIN, int modId, String stts) {
         this.attId = attId;
         this.stdID = stdID;
-        this.tchrId = tchrId;
-        this.sem = sem;
+        this.TchrCIN = TchrCIN;
         this.modId = modId;
         this.stts = stts;
-        this.date = date;
+
     }
 
 
@@ -32,12 +28,8 @@ public class Attendance {
         return stdID;
     }
 
-    public int getTchrId() {
-        return tchrId;
-    }
-
-    public String getSem() {
-        return sem;
+    public String getTchrCIN() {
+        return TchrCIN;
     }
 
     public int getModId() {
@@ -46,10 +38,6 @@ public class Attendance {
 
     public String getStts() {
         return stts;
-    }
-
-    public String getDate() {
-        return date;
     }
 
 
@@ -61,12 +49,8 @@ public class Attendance {
         this.stdID = stdID;
     }
 
-    public void setTchrId(int tchrId) {
-        this.tchrId = tchrId;
-    }
-
-    public void setSem(String sem) {
-        this.sem = sem;
+    public void setTchrId(String TchrCIN) {
+        this.TchrCIN = TchrCIN;
     }
 
     public void setModId(int modId) {
@@ -75,10 +59,6 @@ public class Attendance {
 
     public void setStts(String stts) {
         this.stts = stts;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
 

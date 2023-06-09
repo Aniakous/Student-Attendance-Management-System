@@ -36,31 +36,20 @@ public class AttendanceController {
     private TableColumn<Attendance, Integer> ColStdID;
 
     @FXML
-    private TableColumn<Attendance, Integer> ColTchrID;
-
-    @FXML
-    private TableColumn<Attendance, String> ColDate;
-
-    @FXML
-    private TableColumn<Attendance, String> Colsmstr;
+    private TableColumn<Attendance, Integer> ColTchrCIN;
 
     @FXML
     private TableColumn<Attendance, String> Colstts;
 
-    @FXML
-    private TextField Date;
 
     @FXML
     private TextField ModID;
 
     @FXML
-    private TextField Semester;
-
-    @FXML
     private TextField Status;
 
     @FXML
-    private TextField TchrID;
+    private TextField TchrCIN;
 
     @FXML
     private TextField search;
@@ -78,17 +67,15 @@ public class AttendanceController {
     private void initializeTableColumns() {
         ColAttID.setCellValueFactory(new PropertyValueFactory<>("attId"));
         ColStdID.setCellValueFactory(new PropertyValueFactory<>("stdID"));
-        ColTchrID.setCellValueFactory(new PropertyValueFactory<>("tchrId"));
-        Colsmstr.setCellValueFactory(new PropertyValueFactory<>("sem"));
+        ColTchrCIN.setCellValueFactory(new PropertyValueFactory<>("TchrCIN"));
         ColModID.setCellValueFactory(new PropertyValueFactory<>("modId"));
         Colstts.setCellValueFactory(new PropertyValueFactory<>("stts"));
-        ColDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-
     }
 
     private void displayAttendance() {
         ObservableList<Attendance> attendance = getAllAttendance();
-        AttendanceTab.setItems(attendance);
+        AttendanceList = attendance;
+        AttendanceTab.setItems(AttendanceList);
     }
 
     private ObservableList<Attendance> AttendanceList;
@@ -96,7 +83,6 @@ public class AttendanceController {
     private Connection conn = null;
     private ResultSet rs = null;
     private PreparedStatement pst = null;
-
 
     public static ObservableList<Attendance> getAllAttendance() {
         Connection conn = connectDb();
@@ -108,13 +94,12 @@ public class AttendanceController {
 
             while (rs.next()) {
                 list.add(new Attendance(
-                        Integer.parseInt(rs.getString("Attendance_ID")),
-                        Integer.parseInt(rs.getString("Student_ID")),
-                        Integer.parseInt(rs.getString("Teacher_ID")),
-                        rs.getString("Semester"),
-                        Integer.parseInt(rs.getString("Module_ID")),
-                        rs.getString("Status"),
-                        rs.getString("Date")));
+                        rs.getInt("Attendance_ID"),
+                        rs.getInt("Student_ID"),
+                        rs.getString("Teacher_CIN"),
+                        rs.getInt("Module_ID"),
+                        rs.getString("Status")
+                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,12 +117,9 @@ public class AttendanceController {
     private void clearFields() {
         AttendanceID.clear();
         stdID.clear();
-        TchrID.clear();
-        Semester.clear();
+        TchrCIN.clear();
         ModID.clear();
         Status.clear();
-        Date.clear();
-
     }
 
 
@@ -145,16 +127,14 @@ public class AttendanceController {
     void OnActionAddBtn(ActionEvent event) {
 
         conn = connectDb();
-        String sql = "INSERT INTO Attendance(Attendance_ID, Student_ID, Teacher_ID, Semester, Module_ID, Status, Date ) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Attendance(Attendance_ID, Student_ID, Teacher_CIN, Module_ID, Status ) VALUES (?,?,?,?,?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, AttendanceID.getText());
             pst.setString(2, stdID.getText());
-            pst.setString(3, TchrID.getText());
-            pst.setString(4, Semester.getText());
-            pst.setString(5, ModID.getText());
-            pst.setString(6, Status.getText());
-            pst.setString(7, Date.getText());
+            pst.setString(3, TchrCIN.getText());
+            pst.setString(4, ModID.getText());
+            pst.setString(5, Status.getText());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Attendance added");
@@ -208,13 +188,11 @@ public class AttendanceController {
             while (rs.next()) {
                 int attId = rs.getInt("Attendance_ID");
                 int stdID = rs.getInt("Student_ID");
-                int tchrId = rs.getInt("Teacher_ID");
-                String sem = rs.getString("Semester");
+                String TchrCIN = rs.getString("Teacher_CIN");
                 int modId = rs.getInt("Module_ID");
                 String stts = rs.getString("Status");
-                String date = rs.getString("Date");
 
-                Attendance attendance = new Attendance(attId, stdID, tchrId, sem, modId, stts, date);
+                Attendance attendance = new Attendance(attId, stdID, TchrCIN, modId, stts);
                 AttendanceList.add(attendance);
             }
             AttendanceTab.setItems(AttendanceList);
@@ -225,11 +203,9 @@ public class AttendanceController {
 
                     AttendanceID.setText(String.valueOf(selectedAttendance.getAttId()));
                     stdID.setText(String.valueOf(selectedAttendance.getStdID()));
-                    TchrID.setText(String.valueOf(selectedAttendance.getTchrId()));
-                    Semester.setText(selectedAttendance.getSem());
+                    TchrCIN.setText(selectedAttendance.getTchrCIN());
                     ModID.setText(String.valueOf(selectedAttendance.getModId()));
                     Status.setText(selectedAttendance.getStts());
-                    Date.setText(selectedAttendance.getDate());
 
                 } else {
                     clearFields();
@@ -248,13 +224,11 @@ public class AttendanceController {
             conn = ConnexionMySQL.connectDb();
             String value1 = AttendanceID.getText();
             String value2 = stdID.getText();
-            String value3 = TchrID.getText();
-            String value4 = Semester.getText();
-            String value5 = ModID.getText();
-            String value6 = Status.getText();
-            String value7 = Date.getText();
+            String value3 = TchrCIN.getText();
+            String value4 = ModID.getText();
+            String value5 = Status.getText();
 
-            String sql = "update Attendance set Attendance_ID='"+value1+"',Student_ID = '"+value2+"', Teacher_ID = '"+value3+"', Semester = '"+value4+"' , Module_ID = '"+value5+"', Status = '"+value6+"', Date = '"+value7+"' WHERE Attendance_ID = '"+value1+"'";
+            String sql = "UPDATE Attendance SET Attendance_ID = '" + value1 + "', Student_ID = '" + value2 + "', Teacher_ID = '" + value3 + "', Module_ID = '" + value4 + "', Status = '" + value5 + "' WHERE Attendance_ID = '" + value1 + "'";
 
             pst = conn.prepareStatement(sql);
             pst.execute();

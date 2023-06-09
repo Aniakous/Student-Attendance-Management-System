@@ -32,14 +32,14 @@
                 </Label>
             </children>
         </AnchorPane>
-        <TableView id="StdTab" fx:id="ModTab" layoutX="407.0" layoutY="252.0" onSort="#OnActionModTab" prefHeight="410.0" prefWidth="585.0">
+        <TableView fx:id="ModTab" layoutX="433.0" layoutY="282.0" onSort="#OnActionModTab" prefHeight="367.0" prefWidth="587.0">
             <columns>
                 <TableColumn fx:id="ColModID" prefWidth="106.0" text="Module ID" />
                 <TableColumn fx:id="colName" prefWidth="221.33331298828125" text="Name" />
                 <TableColumn fx:id="ColFieldID" prefWidth="257.33331298828125" text="Field ID" />
             </columns>
         </TableView>
-        <AnchorPane layoutX="627.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="627.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
             <children>
                 <TextField fx:id="search" layoutX="21.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search Module" />
                 <Button fx:id="searchBtn" layoutX="37.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
@@ -50,13 +50,13 @@
                 </Label>
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="863.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="863.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
             <children>
                 <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
                 <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
             </children>
         </AnchorPane>
-        <AnchorPane layoutX="380.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="380.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
             <children>
                 <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
                 <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />
