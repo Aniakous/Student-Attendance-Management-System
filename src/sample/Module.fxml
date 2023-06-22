@@ -5,68 +5,105 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1111.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ModuleController">
+<AnchorPane prefHeight="694.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ModuleController">
     <children>
-        <AnchorPane layoutX="24.0" layoutY="180.0" prefHeight="349.0" prefWidth="323.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="24.0" layoutY="115.0" prefHeight="479.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
             <children>
-                <TextField fx:id="ModName" layoutX="114.0" layoutY="144.0" prefHeight="49.0" prefWidth="180.0" promptText="Name" />
-                <TextField fx:id="FieldID" layoutX="113.0" layoutY="231.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
-                <TextField fx:id="ModID" layoutX="114.0" layoutY="64.0" prefHeight="49.0" prefWidth="180.0" promptText="Module ID" />
-                <Label layoutX="17.0" layoutY="80.0" prefHeight="17.0" prefWidth="75.0" text="Module ID">
+                <TextField fx:id="ModName" layoutX="114.0" layoutY="157.0" prefHeight="49.0" prefWidth="180.0" promptText="Name" />
+                <TextField fx:id="FieldID" layoutX="113.0" layoutY="244.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
+                <TextField fx:id="ModID" editable="false" layoutX="114.0" layoutY="77.0" prefHeight="49.0" prefWidth="180.0" promptText="Module ID" />
+                <Label layoutX="17.0" layoutY="93.0" prefHeight="17.0" prefWidth="75.0" text="Module ID">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="21.0" layoutY="160.0" prefHeight="17.0" prefWidth="75.0" text="Name">
+                <Label layoutX="21.0" layoutY="173.0" prefHeight="17.0" prefWidth="75.0" text="Name">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="21.0" layoutY="247.0" prefHeight="17.0" prefWidth="67.0" text="Field  ID">
+                <Label layoutX="21.0" layoutY="260.0" prefHeight="17.0" prefWidth="67.0" text="Field  ID">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
+            <TextField fx:id="Description" layoutX="113.0" layoutY="327.0" prefHeight="117.0" prefWidth="180.0" />
+            <Label layoutX="21.0" layoutY="370.0" prefHeight="17.0" prefWidth="67.0" text="Description">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+              <Label layoutX="113.0" layoutY="20.0" prefHeight="29.0" prefWidth="97.0" text="MODULE">
+                  <font>
+                      <Font name="Times New Roman Italic" size="19.0" />
+                  </font>
+              </Label>
             </children>
         </AnchorPane>
-        <TableView fx:id="ModTab" layoutX="433.0" layoutY="282.0" onSort="#OnActionModTab" prefHeight="367.0" prefWidth="587.0">
+        <TableView fx:id="ModTab" layoutX="430.0" layoutY="289.0" onMouseClicked="#GetSelected" onSort="#OnActionModTab" prefHeight="381.0" prefWidth="784.0">
             <columns>
-                <TableColumn fx:id="ColModID" prefWidth="106.0" text="Module ID" />
-                <TableColumn fx:id="colName" prefWidth="221.33331298828125" text="Name" />
-                <TableColumn fx:id="ColFieldID" prefWidth="257.33331298828125" text="Field ID" />
+                <TableColumn fx:id="ColModID" prefWidth="127.33340454101562" text="Module ID" />
+                <TableColumn fx:id="colName" prefWidth="232.6666259765625" text="Name" />
+                <TableColumn fx:id="ColFieldID" prefWidth="178.00006103515625" text="Field ID" />
+            <TableColumn fx:id="ColDescription" prefWidth="243.99993896484375" text="Description" />
             </columns>
         </TableView>
-        <AnchorPane layoutX="627.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
-            <children>
-                <TextField fx:id="search" layoutX="21.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search Module" />
-                <Button fx:id="searchBtn" layoutX="37.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
-                <Label layoutX="38.0" layoutY="26.0" text="Search Module By Name">
-                    <font>
-                        <Font name="System Italic" size="11.0" />
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="863.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
-            <children>
-                <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
-                <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="380.0" layoutY="34.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
-            <children>
-                <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
-                <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />
-                <Button layoutX="37.0" layoutY="143.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="DELETE" textFill="#380648" />
-            </children>
-        </AnchorPane>
-        <Label layoutX="123.0" layoutY="69.0" prefHeight="29.0" prefWidth="125.0" text="MODULE">
-            <font>
-                <Font name="Times New Roman Bold Italic" size="25.0" />
-            </font>
-        </Label>
+      <AnchorPane layoutX="518.0" layoutY="40.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+            <Button layoutX="36.0" layoutY="19.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="ADD" textFill="#380648" />
+            <Button layoutX="36.0" layoutY="90.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="UPDATE" textFill="#380648" />
+            <Button layoutX="36.0" layoutY="157.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="DELETE" textFill="#380648" />
+            <ImageView fitHeight="35.0" fitWidth="67.0" layoutX="49.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/button.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="45.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/delete.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="49.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/refresh.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="862.0" layoutY="40.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+            <TextField fx:id="search" layoutX="36.0" layoutY="61.0" prefHeight="49.0" prefWidth="194.0" promptText="Search student" />
+            <Button fx:id="searchBtn" layoutX="48.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="63.0" layoutY="28.0" prefHeight="16.0" prefWidth="139.0" text="Search Student By Name">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="63.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="96.0" fitWidth="67.0" layoutX="153.0" layoutY="25.0" onMouseClicked="#OnActionHomee" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/home.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="83.0" fitWidth="75.0" layoutX="149.0" layoutY="605.0" onMouseClicked="#OnActionExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/exit%20(1).png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

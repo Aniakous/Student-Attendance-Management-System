@@ -17,6 +17,12 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import static sample.ConnexionMySQL.connectDb;
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
+import java.util.Date;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+
 
 public class AttendanceController {
 
@@ -57,11 +63,36 @@ public class AttendanceController {
     @FXML
     private TextField stdID;
 
+    @FXML
+    private Label date;
+
 
     public void initialize() {
         Platform.runLater(() -> AttendanceID.requestFocus());
         initializeTableColumns();
         displayAttendance();
+        dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        updateDateTime();
+        Thread dateTimeThread = new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                    updateDateTime();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        dateTimeThread.setDaemon(true);
+        dateTimeThread.start();
+    }
+
+    private SimpleDateFormat dateFormat;
+
+    private void updateDateTime() {
+        Date now = new Date();
+        String formattedDate = dateFormat.format(now);
+        Platform.runLater(() -> date.setText(formattedDate));
     }
 
     private void initializeTableColumns() {
@@ -161,18 +192,14 @@ public class AttendanceController {
     }
 
     @FXML
-    void OnActionExitBtn(ActionEvent event) {
-
+    void OnActionExit(MouseEvent event) {
         Platform.exit();
-
     }
 
-    public void OnActionHome(ActionEvent actionEvent) throws IOException {
-
-
+    @FXML
+    void OnActionHomee(MouseEvent event) throws IOException {
         JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
-
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
@@ -228,7 +255,7 @@ public class AttendanceController {
             String value4 = ModID.getText();
             String value5 = Status.getText();
 
-            String sql = "UPDATE Attendance SET Attendance_ID = '" + value1 + "', Student_ID = '" + value2 + "', Teacher_ID = '" + value3 + "', Module_ID = '" + value4 + "', Status = '" + value5 + "' WHERE Attendance_ID = '" + value1 + "'";
+            String sql = "UPDATE Attendance SET Attendance_ID = '" + value1 + "', Student_ID = '" + value2 + "', Teacher_CIN = '" + value3 + "', Module_ID = '" + value4 + "', Status = '" + value5 + "' WHERE Attendance_ID = '" + value1 + "'";
 
             pst = conn.prepareStatement(sql);
             pst.execute();
@@ -240,6 +267,22 @@ public class AttendanceController {
             JOptionPane.showMessageDialog(null,e);
 
         }
+    }
+
+    @FXML
+    void GetSelected(MouseEvent event) {
+        index = AttendanceTab.getSelectionModel().getSelectedIndex();
+
+        if(index <= -1){
+
+            return;
+        }
+
+        AttendanceID.setText(ColAttID.getCellData(index).toString());
+        stdID.setText(ColStdID.getCellData(index).toString());
+        TchrCIN.setText(String.valueOf(ColTchrCIN.getCellData(index)));
+        ModID.setText(ColModID.getCellData(index).toString());
+        Status.setText(String.valueOf(Colstts.getCellData(index)));
     }
 
 }

@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+
 import static sample.ConnexionMySQL.connectDb;
 
 
@@ -23,6 +25,9 @@ public class FieldController {
 
     @FXML
     private Button Exit;
+
+    @FXML
+    private TableColumn<Field, Integer> ColFldID;
 
     @FXML
     private TextField FieldID;
@@ -34,10 +39,8 @@ public class FieldController {
     private TableView<Field> FldTab;
 
     @FXML
-    private TableColumn<Field, Integer> ColFldID;
+    private TableColumn<Field, String> colName;
 
-    @FXML
-    private TableColumn<Field, String > colName;
 
     @FXML
     private Button home;
@@ -148,15 +151,13 @@ public class FieldController {
     }
 
     @FXML
-    void OnActionExitBtn(ActionEvent event) {
-
+    void OnActionExit(MouseEvent event) {
         Platform.exit();
     }
 
+
     @FXML
-    void OnActionHome(ActionEvent event) throws IOException {
-
-
+    void OnActionHomee(MouseEvent event) throws IOException {
         JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
 
@@ -224,6 +225,22 @@ public class FieldController {
             JOptionPane.showMessageDialog(null,e);
 
         }
+    }
+
+
+
+    @FXML
+    void GetSelected(MouseEvent event) {
+        index = FldTab.getSelectionModel().getSelectedIndex();
+
+        if(index <= -1){
+
+            return;
+        }
+
+        FieldID.setText(ColFldID.getCellData(index).toString());
+        FldName.setText(colName.getCellData(index));
+
     }
 
 }

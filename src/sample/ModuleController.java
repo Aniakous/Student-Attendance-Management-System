@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 
@@ -32,7 +33,13 @@ public class ModuleController {
     private TableColumn<Module, String> colName;
 
     @FXML
+    private TableColumn<Module, String> ColDescription;
+
+    @FXML
     private Button Exit;
+
+    @FXML
+    private TextField Description;
 
     @FXML
     private TextField FieldID;
@@ -71,6 +78,7 @@ public class ModuleController {
         ColModID.setCellValueFactory(new PropertyValueFactory<>("ModID"));
         colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         ColFieldID.setCellValueFactory(new PropertyValueFactory<>("FieldID"));
+        ColDescription.setCellValueFactory(new PropertyValueFactory<>("Desc"));
     }
 
     private void displayModules() {
@@ -90,7 +98,9 @@ public class ModuleController {
                 list.add(new Module(
                         Integer.parseInt(rs.getString("Module_ID")),
                         rs.getString("Name"),
-                        Integer.parseInt(rs.getString("Field_ID"))
+                        Integer.parseInt(rs.getString("Field_ID")),
+                        rs.getString("Description")
+
                 ));
             }
         } catch (SQLException e) {
@@ -110,15 +120,17 @@ public class ModuleController {
         ModID.clear();
         ModName.clear();
         FieldID.clear();
+        Description.clear();
     }
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Module(Name, Field_ID) VALUES (?,?)";
+        String sql = "INSERT INTO Module(Name, Field_ID, Description) VALUES (?,?,?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, ModName.getText());
             pst.setString(2, FieldID.getText());
+            pst.setString(3, Description.getText());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Module added");
@@ -148,15 +160,16 @@ public class ModuleController {
 
 
     @FXML
-    void OnActionExitBtn(ActionEvent event) {
+    void OnActionExit(MouseEvent event) {
         Platform.exit();
     }
 
-    public void OnActionHome(ActionEvent actionEvent) throws IOException {
 
-
+    @FXML
+    void OnActionHomee(MouseEvent event) throws IOException {
         JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
+
 
     @FXML
     void OnActionModTab(ActionEvent event) {
@@ -181,8 +194,9 @@ public class ModuleController {
                 int modID = rs.getInt("Module_ID");
                 String name = rs.getString("Name");
                 int fieldID = rs.getInt("Field_ID");
+                String Desc = rs.getString("Description");
 
-                Module module = new Module(modID, name, fieldID);
+                Module module = new Module(modID, name, fieldID, Desc);
                 moduleList.add(module);
             }
 
@@ -195,6 +209,7 @@ public class ModuleController {
                     ModID.setText(String.valueOf(selectedModule.getModID()));
                     ModName.setText(selectedModule.getName());
                     FieldID.setText(String.valueOf(selectedModule.getFieldID()));
+                    Description.setText(selectedModule.getDesc());
                 } else {
                     clearFields();
                 }
@@ -212,9 +227,10 @@ public class ModuleController {
             String value1 = ModID.getText();
             String value2 = ModName.getText();
             String value3 = FieldID.getText();
+            String value4 = Description.getText();
 
 
-            String sql = "update Module set Module_ID='" + value1 + "',Name = '" + value2 + "', Field_ID = '" + value3  + "' WHERE Module_ID = '" + value1 + "'";
+            String sql = "update Module set Module_ID='" + value1 + "', Name = '" + value2 + "', Field_ID = '" + value3  + "', Description = '" + value4  + "' WHERE Module_ID = '" + value1 + "'";
 
             pst = conn.prepareStatement(sql);
             pst.execute();
@@ -226,6 +242,23 @@ public class ModuleController {
             JOptionPane.showMessageDialog(null, e);
 
         }
+    }
+
+
+
+    @FXML
+    void GetSelected(MouseEvent event) {
+        index = ModTab.getSelectionModel().getSelectedIndex();
+
+        if(index <= -1){
+
+            return;
+        }
+
+        ModID.setText(ColModID.getCellData(index).toString());
+        ModName.setText(colName.getCellData(index));
+        FieldID.setText(ColFieldID.getCellData(index).toString());
+        Description.setText(ColDescription.getCellData(index));
     }
 
     }

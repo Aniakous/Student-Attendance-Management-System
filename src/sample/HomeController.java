@@ -3,6 +3,8 @@ package sample;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 
 
@@ -44,8 +46,14 @@ public class HomeController {
     }
 
     @FXML
-    void OnActionExitBtn(ActionEvent event) {
-
+    void OnActionExit(MouseEvent event) {
         Platform.exit();
     }
+
+
+    @FXML
+    void OnActionHomee(MouseEvent event) throws IOException {
+        JFxUtils.changeScene(Main.stage, "Home.fxml");
+    }
+
 }

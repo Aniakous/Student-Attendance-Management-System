@@ -4,11 +4,13 @@ public class Module {
     private Integer ModID;
     private String Name;
     private Integer FieldID;
+    private String Desc;
 
-    public Module(Integer ModID, String Name, Integer FieldID) {
+    public Module(Integer ModID, String Name, Integer FieldID, String Desc) {
         this.ModID = ModID;
         this.Name = Name;
         this.FieldID = FieldID;
+        this.Desc = Desc;
     }
 
     public Integer getModID() {
@@ -23,6 +25,10 @@ public class Module {
         return FieldID;
     }
 
+    public String getDesc() { return Desc;
+    }
+
+
     public void setModID(Integer ModID) {
         ModID = ModID;
     }
@@ -34,4 +40,10 @@ public class Module {
     public void setFieldID(Integer FieldID) {
         FieldID = FieldID;
     }
+
+    public void setDesc(String Desc) {
+
+        Desc = Desc;
+    }
+
 }

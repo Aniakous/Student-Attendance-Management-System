@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+
 import static sample.ConnexionMySQL.connectDb;
 
 public class TeacherController {
@@ -26,7 +28,7 @@ public class TeacherController {
     private Button Exit;
 
     @FXML
-    private TextField TchrCIN;
+    private TextField CIN;
 
     @FXML
     private TableView<Teacher> TchrTab;
@@ -61,6 +63,7 @@ public class TeacherController {
     @FXML
     private Button searchBtn;
 
+
     private ObservableList<Teacher> teacherList;
     private int index = -1;
     private Connection conn = null;
@@ -68,7 +71,7 @@ public class TeacherController {
     private PreparedStatement pst = null;
 
     public void initialize() {
-        Platform.runLater(() -> TchrCIN.requestFocus());
+        Platform.runLater(() -> CIN.requestFocus());
         initializeTableColumns();
         displayTeachers();
     }
@@ -76,7 +79,7 @@ public class TeacherController {
     private void initializeTableColumns() {
 
         colTchrCIN.setCellValueFactory(new PropertyValueFactory<>("TchrCIN"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("fullname"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         colMail.setCellValueFactory(new PropertyValueFactory<>("mail"));
         ColPhone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
     }
@@ -117,7 +120,7 @@ public class TeacherController {
     }
 
     private void clearFields() {
-        TchrCIN.clear();
+        CIN.clear();
         fullname.clear();
         mail.clear();
         Phone.clear();
@@ -126,12 +129,14 @@ public class TeacherController {
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Teacher(Full_Name, Email, Phone_Number) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Teacher(Teacher_CIN, Full_Name, Email, Phone_Number) VALUES (?, ?, ?, ?)";
         try {
             pst = conn.prepareStatement(sql);
-            pst.setString(1, fullname.getText());
-            pst.setString(2, mail.getText());
-            pst.setString(3, Phone.getText());
+
+            pst.setString(1, CIN.getText());
+            pst.setString(2, fullname.getText());
+            pst.setString(3, mail.getText());
+            pst.setString(4, Phone.getText());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Teacher added");
@@ -149,7 +154,7 @@ public class TeacherController {
         String sql = "DELETE FROM Teacher WHERE Teacher_CIN = ?";
         try {
             pst = conn.prepareStatement(sql);
-            pst.setString(1, TchrCIN.getText());
+            pst.setString(1, CIN.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Teacher deleted");
             clearFields();
@@ -160,7 +165,6 @@ public class TeacherController {
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
-
         conn = connectDb();
         String searchText = search.getText();
 
@@ -188,10 +192,10 @@ public class TeacherController {
             TchrTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                 if (newSelection != null) {
                     Teacher selectedTeacher = newSelection;
-                    TchrCIN.setText(selectedTeacher.getTchrCIN());
+                    CIN.setText(selectedTeacher.getTchrCIN());
                     fullname.setText(selectedTeacher.getFullName());
                     mail.setText(selectedTeacher.getMail());
-                    Phone.setText(String.valueOf(selectedTeacher.getPhone()));
+                    Phone.setText(selectedTeacher.getPhone());
                 } else {
                     clearFields();
                 }
@@ -201,13 +205,14 @@ public class TeacherController {
         }
     }
 
+
+
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
 
-
         try{
             conn = ConnexionMySQL.connectDb();
-            String value1 = TchrCIN.getText();
+            String value1 = CIN.getText();
             String value2 = fullname.getText();
             String value3 = mail.getText();
             String value4 = Phone.getText();
@@ -226,17 +231,36 @@ public class TeacherController {
         }
         }
 
+
     @FXML
-    void OnActionExitBtn(ActionEvent event)
-    {
+    void OnActionExit(MouseEvent event) {
         Platform.exit();
     }
 
-    public void OnActionHome(ActionEvent actionEvent) throws IOException {
 
-
+    @FXML
+    void OnActionHomee(MouseEvent event) throws IOException {
         JFxUtils.changeScene(Main.stage, "Home.fxml");
     }
+
+
+    @FXML
+    void GetSelected(MouseEvent event) {
+        index = TchrTab.getSelectionModel().getSelectedIndex();
+
+        if(index <= -1){
+
+            return;
+        }
+
+        CIN.setText(colTchrCIN.getCellData(index));
+        fullname.setText(colName.getCellData(index));
+        mail.setText(colMail.getCellData(index));
+        Phone.setText(String.valueOf(ColPhone.getCellData(index)));
+    }
+
+
+
     @FXML
     void OnActionStdTab(ActionEvent event) {
 

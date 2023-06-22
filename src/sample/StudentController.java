@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+
 import static sample.ConnexionMySQL.connectDb;
 
 
@@ -240,14 +242,31 @@ public class StudentController  {
     }
 
 
-    public void OnActionExitBtn(ActionEvent actionEvent) {
-
+    @FXML
+    void OnActionExit(MouseEvent event) {
         Platform.exit();
     }
 
-    public void OnActionHome(ActionEvent actionEvent) throws IOException {
 
-
+    @FXML
+    void OnActionHomee(MouseEvent event) throws IOException {
         JFxUtils.changeScene(Main.stage, "Home.fxml");
+    }
+
+
+    @FXML
+    void GetSelected(MouseEvent event) {
+        index = StdTab.getSelectionModel().getSelectedIndex();
+
+        if(index <= -1){
+
+            return;
+        }
+
+        stdID.setText(colstdID.getCellData(index).toString());
+        fullname.setText(colName.getCellData(index));
+        fieldID.setText(colFieldID.getCellData(index).toString());
+        mail.setText(colMail.getCellData(index));
+        phone.setText(String.valueOf(colPhone.getCellData(index)));
     }
 }

@@ -5,76 +5,106 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1184.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
+<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
     <children>
-        <AnchorPane layoutX="24.0" layoutY="150.0" prefHeight="429.0" prefWidth="323.0" style="-fx-background-color: lavender;">
+        <AnchorPane layoutX="24.0" layoutY="145.0" prefHeight="429.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
             <children>
-                <TextField fx:id="fullname" layoutX="114.0" layoutY="144.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
-                <TextField fx:id="mail" layoutX="113.0" layoutY="231.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
-                <TextField fx:id="CIN" layoutX="114.0" layoutY="64.0" prefHeight="49.0" prefWidth="180.0" promptText="CIN" />
-                <TextField fx:id="Phone" layoutX="113.0" layoutY="328.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
+                <TextField fx:id="fullname" layoutX="117.0" layoutY="160.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
+                <TextField fx:id="mail" layoutX="116.0" layoutY="253.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
+                <TextField fx:id="CIN" layoutX="117.0" layoutY="80.0" prefHeight="49.0" prefWidth="180.0" promptText="CIN" />
+                <TextField fx:id="Phone" layoutX="116.0" layoutY="344.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
 
-                <Label layoutX="17.0" layoutY="80.0" prefHeight="17.0" prefWidth="75.0" text="Teacher CIN">
+                <Label layoutX="20.0" layoutY="96.0" prefHeight="17.0" prefWidth="75.0" text="Teacher CIN">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="17.0" layoutY="160.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
+                <Label layoutX="20.0" layoutY="176.0" prefHeight="17.0" prefWidth="75.0" text="Full Name">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-                <Label layoutX="21.0" layoutY="247.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
+                <Label layoutX="24.0" layoutY="269.0" prefHeight="17.0" prefWidth="67.0" text="E-Mail">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-            <Label layoutX="14.0" layoutY="344.0" prefHeight="17.0" prefWidth="95.0" text="Phone Number">
+            <Label layoutX="17.0" layoutY="360.0" prefHeight="17.0" prefWidth="95.0" text="Phone Number">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
+            <Label layoutX="114.0" layoutY="27.0" prefHeight="29.0" prefWidth="95.0" text="TEACHER">
+               <font>
+                  <Font name="Times New Roman Italic" size="19.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
-        <TableView id="StdTab" fx:id="TchrTab" layoutX="386.0" layoutY="262.0" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="767.0">
+        <TableView id="StdTab" fx:id="TchrTab" layoutX="425.0" layoutY="270.0" onMouseClicked="#GetSelected" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="786.0">
             <columns>
-                <TableColumn fx:id="colTchrCIN" prefWidth="85.33331298828125" text="Teacher CIN" />
-                <TableColumn fx:id="colName" prefWidth="200.00003051757812" text="Full Name" />
-                <TableColumn fx:id="colMail" prefWidth="261.33331298828125" text="E-Mail" />
-            <TableColumn fx:id="ColPhone" prefWidth="218.66670735677087" text="Phone Number" />
+                <TableColumn fx:id="colTchrCIN" prefWidth="118.66665649414062" text="Teacher CIN" />
+                <TableColumn fx:id="colName" prefWidth="187.33331298828125" text="Full Name" />
+                <TableColumn fx:id="colMail" prefWidth="257.3333740234375" text="E-Mail" />
+            <TableColumn fx:id="ColPhone" prefWidth="222.66668701171875" text="Phone Number" />
             </columns>
         </TableView>
-        <AnchorPane layoutX="670.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
-            <children>
-                <TextField fx:id="search" layoutX="21.0" layoutY="65.0" prefHeight="49.0" prefWidth="162.0" promptText="Search Teacher" />
-                <Button fx:id="searchBtn" layoutX="37.0" layoutY="138.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="SEARCH" textFill="#380648" />
-                <Label layoutX="38.0" layoutY="26.0" text="Search Teacher By Name">
-                    <font>
-                        <Font name="System Italic" size="11.0" />
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="919.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
-            <children>
-                <Button fx:id="home" layoutX="39.0" layoutY="46.0" mnemonicParsing="false" onAction="#OnActionHome" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="HOME" textFill="#380648" />
-                <Button fx:id="Exit" layoutX="39.0" layoutY="115.0" mnemonicParsing="false" onAction="#OnActionExitBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="Exit" textFill="#380648" />
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="406.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lavender;">
-            <children>
-                <Button layoutX="37.0" layoutY="26.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="ADD" textFill="#380648" />
-                <Button layoutX="37.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="UPDATE" textFill="#380648" />
-                <Button layoutX="37.0" layoutY="143.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="35.0" prefWidth="125.0" style="-fx-background-color: #e1bee7;" text="DELETE" textFill="#380648" />
-            </children>
-        </AnchorPane>
-      <Label layoutX="123.0" layoutY="58.0" prefHeight="29.0" prefWidth="125.0" text="TEACHER">
-         <font>
-            <Font name="Times New Roman Bold Italic" size="25.0" />
-         </font>
-      </Label>
+      <AnchorPane layoutX="497.0" layoutY="25.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+            <Button layoutX="36.0" layoutY="16.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="ADD" textFill="#380648" />
+            <Button layoutX="36.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="UPDATE" textFill="#380648" />
+            <Button layoutX="36.0" layoutY="154.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="DELETE" textFill="#380648" />
+            <ImageView fitHeight="35.0" fitWidth="67.0" layoutX="49.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/button.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="45.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/delete.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="49.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/refresh.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="842.0" layoutY="25.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+            <TextField fx:id="search" layoutX="36.0" layoutY="61.0" prefHeight="49.0" prefWidth="194.0" promptText="Search student" />
+            <Button fx:id="searchBtn" layoutX="48.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+            <Label layoutX="63.0" layoutY="28.0" prefHeight="16.0" prefWidth="139.0" text="Search Student By Name">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="63.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/search.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="92.0" fitWidth="84.0" layoutX="144.0" layoutY="25.0" onMouseClicked="#OnActionHomee" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/home.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="84.0" fitWidth="95.0" layoutX="144.0" layoutY="596.0" onMouseClicked="#OnActionExit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/exit%20(1).png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>
