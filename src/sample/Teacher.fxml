@@ -10,14 +10,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
+<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
     <children>
         <AnchorPane layoutX="24.0" layoutY="145.0" prefHeight="429.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
             <children>
-                <TextField fx:id="fullname" layoutX="117.0" layoutY="160.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
-                <TextField fx:id="mail" layoutX="116.0" layoutY="253.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
-                <TextField fx:id="CIN" layoutX="117.0" layoutY="80.0" prefHeight="49.0" prefWidth="180.0" promptText="CIN" />
-                <TextField fx:id="Phone" layoutX="116.0" layoutY="344.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
+                <TextField fx:id="fullname" layoutX="117.0" layoutY="160.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
+                <TextField fx:id="mail" layoutX="116.0" layoutY="253.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
+                <TextField fx:id="CIN" layoutX="117.0" layoutY="80.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="CIN" />
+                <TextField fx:id="Phone" layoutX="116.0" layoutY="344.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
 
                 <Label layoutX="20.0" layoutY="96.0" prefHeight="17.0" prefWidth="75.0" text="Teacher CIN">
                     <font>
@@ -78,13 +78,13 @@
       </AnchorPane>
       <AnchorPane layoutX="842.0" layoutY="25.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
          <children>
-            <TextField fx:id="search" layoutX="36.0" layoutY="61.0" prefHeight="49.0" prefWidth="194.0" promptText="Search student" />
+            <TextField fx:id="search" layoutX="36.0" layoutY="61.0" prefHeight="49.0" prefWidth="194.0" promptText="Search Teacher" />
             <Button fx:id="searchBtn" layoutX="48.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Label layoutX="63.0" layoutY="28.0" prefHeight="16.0" prefWidth="139.0" text="Search Student By Name">
+            <Label layoutX="53.0" layoutY="28.0" prefHeight="19.0" prefWidth="153.0" text="Search Teacher By Name">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>

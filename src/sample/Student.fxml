@@ -10,15 +10,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController">
+<AnchorPane prefHeight="694.0" prefWidth="1178.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.StudentController">
    <children>
       <AnchorPane layoutX="34.0" layoutY="112.0" prefHeight="461.0" prefWidth="321.0" style="-fx-background-color: #d1c4e9;">
          <children>
-            <TextField fx:id="fullname" layoutX="114.0" layoutY="142.0" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
-            <TextField fx:id="fieldID" layoutX="114.0" layoutY="230.0" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
-            <TextField fx:id="mail" layoutX="114.0" layoutY="306.0" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
-            <TextField fx:id="stdID" editable="false" layoutX="114.0" layoutY="59.0" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
-            <TextField fx:id="phone" layoutX="113.0" layoutY="389.0" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
+
+            <!-- Rest of the FXML file -->
+
+            <TextField fx:id="fullname" layoutX="114.0" layoutY="142.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Full Name" />
+            <TextField fx:id="fieldID" layoutX="114.0" layoutY="230.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
+            <TextField fx:id="mail" layoutX="114.0" layoutY="306.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="E-Mail" />
+            <TextField fx:id="stdID" editable="false" layoutX="114.0" layoutY="59.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
+            <TextField fx:id="phone" layoutX="113.0" layoutY="389.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Phone Number" />
             <Label layoutX="17.0" layoutY="75.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
@@ -62,7 +65,7 @@
       </TableView>
       <AnchorPane layoutX="815.0" layoutY="20.0" prefHeight="221.0" prefWidth="290.0" style="-fx-background-color: #d1c4e9;">
          <children>
-            <TextField fx:id="search" layoutX="48.0" layoutY="61.0" prefHeight="49.0" prefWidth="194.0" promptText="Search student" />
+            <TextField fx:id="search" layoutX="48.0" layoutY="63.0" prefHeight="49.0" prefWidth="194.0" />
             <Button fx:id="searchBtn" layoutX="60.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
                <font>
                   <Font size="13.0" />

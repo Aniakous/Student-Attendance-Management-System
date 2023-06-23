@@ -1,11 +1,9 @@
 package sample;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,13 +13,18 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import static sample.ConnexionMySQL.connectDb;
 import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
 import java.util.Date;
-import javafx.scene.control.Label;
+
 import javafx.scene.input.MouseEvent;
+
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.util.Callback;
 
 
 public class AttendanceController {
@@ -67,6 +70,7 @@ public class AttendanceController {
     private Label date;
 
 
+
     public void initialize() {
         Platform.runLater(() -> AttendanceID.requestFocus());
         initializeTableColumns();
@@ -87,6 +91,8 @@ public class AttendanceController {
         dateTimeThread.start();
     }
 
+
+
     private SimpleDateFormat dateFormat;
 
     private void updateDateTime() {
@@ -101,6 +107,8 @@ public class AttendanceController {
         ColTchrCIN.setCellValueFactory(new PropertyValueFactory<>("TchrCIN"));
         ColModID.setCellValueFactory(new PropertyValueFactory<>("modId"));
         Colstts.setCellValueFactory(new PropertyValueFactory<>("stts"));
+
+
     }
 
     private void displayAttendance() {
@@ -156,16 +164,15 @@ public class AttendanceController {
 
     @FXML
     void OnActionAddBtn(ActionEvent event) {
-
         conn = connectDb();
-        String sql = "INSERT INTO Attendance(Attendance_ID, Student_ID, Teacher_CIN, Module_ID, Status ) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Attendance(Attendance_ID, Student_ID, Teacher_CIN, Module_ID, Status) VALUES (?,?,?,?,?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, AttendanceID.getText());
             pst.setString(2, stdID.getText());
             pst.setString(3, TchrCIN.getText());
             pst.setString(4, ModID.getText());
-            pst.setString(5, Status.getText());
+            pst.setString(5, "absent");
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Attendance added");
@@ -174,6 +181,7 @@ public class AttendanceController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
 
     @FXML
     void OnActionDeleteBtn(ActionEvent event) {
@@ -284,5 +292,45 @@ public class AttendanceController {
         ModID.setText(ColModID.getCellData(index).toString());
         Status.setText(String.valueOf(Colstts.getCellData(index)));
     }
+
+
+    @FXML
+    void handleKeyPress(KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.UP) {
+            focusPreviousField();
+        } else if (keyCode == KeyCode.DOWN) {
+            focusNextField();
+        }
+    }
+
+    private void focusPreviousField() {
+        if (AttendanceID.isFocused()) {
+            Status.requestFocus();
+        } else if (stdID.isFocused()) {
+            AttendanceID.requestFocus();
+        } else if (TchrCIN.isFocused()) {
+            stdID.requestFocus();
+        } else if (ModID.isFocused()) {
+            TchrCIN.requestFocus();
+        } else if (Status.isFocused()) {
+            ModID.requestFocus();
+        }
+    }
+
+    private void focusNextField() {
+        if (AttendanceID.isFocused()) {
+            stdID.requestFocus();
+        } else if (stdID.isFocused()) {
+            TchrCIN.requestFocus();
+        } else if (TchrCIN.isFocused()) {
+            ModID.requestFocus();
+        } else if (ModID.isFocused()) {
+            Status.requestFocus();
+        } else if (Status.isFocused()) {
+            AttendanceID.requestFocus();
+        }
+    }
+
 
 }

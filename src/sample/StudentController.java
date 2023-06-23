@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import static sample.ConnexionMySQL.connectDb;
@@ -71,7 +73,7 @@ public class StudentController  {
 
 
     public void initialize() {
-        Platform.runLater(() -> stdID.requestFocus());
+       // Platform.runLater(() -> stdID.requestFocus());
         initializeTableColumns();
         displayStudents();
     }
@@ -269,4 +271,50 @@ public class StudentController  {
         mail.setText(colMail.getCellData(index));
         phone.setText(String.valueOf(colPhone.getCellData(index)));
     }
+
+
+
+    @FXML
+    void handleKeyPress(KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.UP) {
+            focusPreviousField();
+        } else if (keyCode == KeyCode.DOWN) {
+            focusNextField();
+        }
+    }
+
+
+    private void focusPreviousField() {
+        if (stdID.isFocused()) {
+            phone.requestFocus();
+        } else if (fullname.isFocused()) {
+            stdID.requestFocus();
+        } else if (fieldID.isFocused()) {
+            fullname.requestFocus();
+        } else if (mail.isFocused()) {
+            fieldID.requestFocus();
+        } else if (phone.isFocused()) {
+            mail.requestFocus();
+        }
+    }
+
+    private void focusNextField() {
+        if (stdID.isFocused()) {
+            fullname.requestFocus();
+        } else if (fullname.isFocused()) {
+            fieldID.requestFocus();
+        } else if (fieldID.isFocused()) {
+            mail.requestFocus();
+        } else if (mail.isFocused()) {
+            phone.requestFocus();
+        } else if (phone.isFocused()) {
+            stdID.requestFocus();
+        }
+    }
+
+
+
+
+
 }

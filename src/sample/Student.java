@@ -8,6 +8,7 @@ public class Student {
     private String mail;
     private String phone;
 
+
     public Student(Integer studentId, String fullName, Integer fieldId, String mail, String phone) {
         this.studentId = studentId;
         this.fullName = fullName;
@@ -35,6 +36,8 @@ public class Student {
     public String getPhone() {
         return phone;
     }
+
+
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;

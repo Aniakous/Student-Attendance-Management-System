@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import static sample.ConnexionMySQL.connectDb;
@@ -248,8 +250,7 @@ public class TeacherController {
     void GetSelected(MouseEvent event) {
         index = TchrTab.getSelectionModel().getSelectedIndex();
 
-        if(index <= -1){
-
+        if (index <= -1) {
             return;
         }
 
@@ -257,6 +258,26 @@ public class TeacherController {
         fullname.setText(colName.getCellData(index));
         mail.setText(colMail.getCellData(index));
         Phone.setText(String.valueOf(ColPhone.getCellData(index)));
+
+        focusNextField();
+        focusPreviousField();
+
+
+    }
+
+
+
+
+    private void selectRow() {
+        Teacher selectedTeacher = TchrTab.getSelectionModel().getSelectedItem();
+        if (selectedTeacher != null) {
+            CIN.setText(selectedTeacher.getTchrCIN());
+            fullname.setText(selectedTeacher.getFullName());
+            mail.setText(selectedTeacher.getMail());
+            Phone.setText(selectedTeacher.getPhone());
+        } else {
+            clearFields();
+        }
     }
 
 
@@ -265,5 +286,51 @@ public class TeacherController {
     void OnActionStdTab(ActionEvent event) {
 
     }
+
+    @FXML
+    void handleKeyPress(KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.UP) {
+            focusPreviousField();
+        } else if (keyCode == KeyCode.DOWN) {
+            focusNextField();
+        }
+    }
+
+    private void focusPreviousField() {
+        if (Phone.isFocused()) {
+            mail.requestFocus();
+        } else if (mail.isFocused()) {
+            fullname.requestFocus();
+        } else if (fullname.isFocused()) {
+            CIN.requestFocus();
+        } else if (CIN.isFocused()) {
+            Phone.requestFocus();
+        }
+
+        if (index > 0) {
+            index--;
+            selectRow();
+        }
+    }
+
+
+    private void focusNextField() {
+        if (CIN.isFocused()) {
+            fullname.requestFocus();
+        } else if (fullname.isFocused()) {
+            mail.requestFocus();
+        } else if (mail.isFocused()) {
+            Phone.requestFocus();
+        } else if (Phone.isFocused()) {
+            CIN.requestFocus();
+        }
+
+        if (index < TchrTab.getItems().size() - 1) {
+            index++;
+            selectRow();
+        }
+    }
+
 
 }

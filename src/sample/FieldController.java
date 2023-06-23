@@ -20,6 +20,9 @@ import javafx.scene.input.MouseEvent;
 
 import static sample.ConnexionMySQL.connectDb;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+
 
 public class FieldController {
 
@@ -53,10 +56,24 @@ public class FieldController {
 
 
     public void initialize() {
-        Platform.runLater(() -> FieldID.requestFocus());
+        //Platform.runLater(() -> FieldID.requestFocus());
         initializeTableColumns();
         displayFields();
+
+
     }
+
+    public void updatetable(){
+
+        ColFldID.setCellValueFactory(new PropertyValueFactory<Field, Integer>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<Field, String>("name"));
+
+        fieldList =  getAllFields();
+        FldTab.setItems(fieldList);
+
+    }
+
+
 
     private ObservableList<Field> fieldList;
     private int index = -1;
@@ -130,6 +147,7 @@ public class FieldController {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
+        updatetable();
     }
 
 
@@ -242,5 +260,33 @@ public class FieldController {
         FldName.setText(colName.getCellData(index));
 
     }
+
+
+    @FXML
+    void handleKeyPress(KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.UP) {
+            focusPreviousField();
+        } else if (keyCode == KeyCode.DOWN) {
+            focusNextField();
+        }
+    }
+
+    private void focusPreviousField() {
+        if (FldName.isFocused()) {
+            FieldID.requestFocus();
+        } else if (FieldID.isFocused()) {
+
+        }
+    }
+
+    private void focusNextField() {
+        if (FieldID.isFocused()) {
+            FldName.requestFocus();
+        } else if (FldName.isFocused()) {
+
+        }
+    }
+
 
 }

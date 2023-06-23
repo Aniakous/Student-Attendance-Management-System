@@ -10,12 +10,13 @@ public class Attendance {
     private String stts;
 
 
+
     public Attendance(int attId, int stdID, String TchrCIN, int modId, String stts) {
         this.attId = attId;
         this.stdID = stdID;
         this.TchrCIN = TchrCIN;
         this.modId = modId;
-        this.stts = stts;
+
 
     }
 
@@ -60,6 +61,8 @@ public class Attendance {
     public void setStts(String stts) {
         this.stts = stts;
     }
+
+
 
 
 }

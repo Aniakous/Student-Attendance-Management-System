@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
@@ -63,7 +65,7 @@ public class ModuleController {
     private Button searchBtn;
 
     public void initialize() {
-        Platform.runLater(() -> ModID.requestFocus());
+       //Platform.runLater(() -> ModID.requestFocus());
         initializeTableColumns();
         displayModules();
     }
@@ -261,4 +263,45 @@ public class ModuleController {
         Description.setText(ColDescription.getCellData(index));
     }
 
+
+    @FXML
+    void handleKeyPress(KeyEvent event) {
+        KeyCode keyCode = event.getCode();
+        if (keyCode == KeyCode.UP) {
+            focusPreviousField();
+        } else if (keyCode == KeyCode.DOWN) {
+            focusNextField();
+        }
     }
+
+
+    private void focusPreviousField() {
+        if (ModID.isFocused()) {
+            Description.requestFocus();
+        } else if (ModName.isFocused()) {
+            ModID.requestFocus();
+        } else if (FieldID.isFocused()) {
+            ModName.requestFocus();
+        } else if (Description.isFocused()) {
+            FieldID.requestFocus();
+        }
+    }
+
+
+
+
+    private void focusNextField() {
+        if (ModID.isFocused()) {
+            ModName.requestFocus();
+        } else if (ModName.isFocused()) {
+            FieldID.requestFocus();
+        } else if (FieldID.isFocused()) {
+            Description.requestFocus();
+        } else if (Description.isFocused()) {
+            ModID.requestFocus();
+        }
+    }
+
+
+
+}
