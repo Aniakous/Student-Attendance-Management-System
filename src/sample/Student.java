@@ -1,5 +1,9 @@
+
 package sample;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
     private Integer studentId;
@@ -7,7 +11,7 @@ public class Student {
     private Integer fieldId;
     private String mail;
     private String phone;
-
+    private List<Module> modules;
 
     public Student(Integer studentId, String fullName, Integer fieldId, String mail, String phone) {
         this.studentId = studentId;
@@ -15,6 +19,7 @@ public class Student {
         this.fieldId = fieldId;
         this.mail = mail;
         this.phone = phone;
+        this.modules = new ArrayList<>();
     }
 
     public Integer getStudentId() {
@@ -37,7 +42,13 @@ public class Student {
         return phone;
     }
 
+    public void addModule(Module module) {
+        modules.add(module);
+    }
 
+    public List<Module> getModules() {
+        return modules;
+    }
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;

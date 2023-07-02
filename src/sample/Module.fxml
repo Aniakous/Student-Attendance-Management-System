@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ModuleController">
+<AnchorPane prefHeight="694.0" prefWidth="1297.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ModuleController">
     <children>
         <AnchorPane layoutX="24.0" layoutY="115.0" prefHeight="479.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
             <children>
@@ -83,7 +83,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Label layoutX="56.0" layoutY="27.0" prefHeight="19.0" prefWidth="155.0" text="Search Module By Name">
+            <Label layoutX="81.0" layoutY="26.0" prefHeight="19.0" prefWidth="97.0" text="Search Module ">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>

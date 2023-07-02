@@ -17,9 +17,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-
 import static sample.ConnexionMySQL.connectDb;
-
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -27,7 +25,8 @@ import javafx.scene.input.KeyEvent;
 public class FieldController {
 
     @FXML
-    private Button Exit;
+    private TableColumn<Field, String> ColDesc;
+
 
     @FXML
     private TableColumn<Field, Integer> ColFldID;
@@ -44,9 +43,9 @@ public class FieldController {
     @FXML
     private TableColumn<Field, String> colName;
 
-
     @FXML
-    private Button home;
+    private TextField Description;
+
 
     @FXML
     private TextField search;
@@ -56,22 +55,27 @@ public class FieldController {
 
 
     public void initialize() {
-        //Platform.runLater(() -> FieldID.requestFocus());
+        Platform.runLater(() -> FieldID.requestFocus());
         initializeTableColumns();
         displayFields();
 
+        FieldID.setOnKeyPressed(this::handleKeyPress);
+        FldName.setOnKeyPressed(this::handleKeyPress);
+        Description.setOnKeyPressed(this::handleKeyPress);
+
+
 
     }
+    public void updatetable() {
+        ColFldID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ColDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
 
-    public void updatetable(){
-
-        ColFldID.setCellValueFactory(new PropertyValueFactory<Field, Integer>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<Field, String>("name"));
-
-        fieldList =  getAllFields();
+        fieldList = FXCollections.observableArrayList();
+        fieldList.addAll(getAllFields());
         FldTab.setItems(fieldList);
-
     }
+
 
 
 
@@ -84,9 +88,11 @@ public class FieldController {
 
 
     private void initializeTableColumns() {
-        ColFldID.setCellValueFactory(new PropertyValueFactory<>("FieldID"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        ColFldID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        ColDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
+
 
     private void displayFields() {
         ObservableList<Field> fields = getAllFields();
@@ -105,7 +111,8 @@ public class FieldController {
             while (rs.next()) {
                 list.add(new Field(
                         rs.getInt("Field_ID"),
-                        rs.getString("Name")
+                        rs.getString("Name"),
+                        rs.getString("Description")
                 ));
             }
         } catch (SQLException e) {
@@ -127,42 +134,48 @@ public class FieldController {
     private void clearFields() {
         FieldID.clear();
         FldName.clear();
+        Description.clear();
     }
 
     public void setfieldList(ObservableList<Field> fieldList) {
         this.fieldList = fieldList;
     }
 
+
+
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Field Name VALUES (?)";
+        String sql = "INSERT INTO Field(Field_ID, Name, Description) VALUES (?, ?, ?)";
         try {
             pst = conn.prepareStatement(sql);
-            pst.setString(1, FldName.getText());
+
+            pst.setString(1, FieldID.getText());
+            pst.setString(2, FldName.getText());
+            pst.setString(3, Description.getText());
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Field added");
             clearFields();
+            updatetable();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            JOptionPane.showMessageDialog(null, e);
         }
-        updatetable();
     }
 
 
 
     @FXML
     void OnActionDeleteBtn(ActionEvent event) {
-
         conn = connectDb();
-        String sql = "DELETE FROM Field WHERE Field_ID = ?";
+        String sql = "DELETE FROM field WHERE Field_ID  = ?";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, FieldID.getText());
             pst.execute();
             JOptionPane.showMessageDialog(null, "Field deleted");
             clearFields();
+            updatetable();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -172,6 +185,7 @@ public class FieldController {
     void OnActionExit(MouseEvent event) {
         Platform.exit();
     }
+
 
 
     @FXML
@@ -201,8 +215,9 @@ public class FieldController {
             while (rs.next()) {
                 int FieldID = rs.getInt("Field_ID");
                 String FldName = rs.getString("Name");
+                String Description = rs.getString("Description");
 
-                Field field = new Field(FieldID, FldName);
+                Field field = new Field(FieldID, FldName, Description);
                 fieldList.add(field);
             }
 
@@ -211,17 +226,17 @@ public class FieldController {
 
             FldTab.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
                 if (newSelection != null) {
-                    Field selectedField = newSelection;
-                    FieldID.setText(String.valueOf(selectedField.getFieldID()));
-                    FldName.setText(selectedField.getName());
+                    Field selectedField = (Field) newSelection;
+                    Description.setText(selectedField.getDescription());
                 } else {
                     clearFields();
                 }
             });
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
+
 
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
@@ -230,14 +245,16 @@ public class FieldController {
             conn = ConnexionMySQL.connectDb();
             String value1 = FieldID.getText();
             String value2 = FldName.getText();
+            String value3 = Description.getText();
 
-            String sql = "update Field set Field_ID='"+value1+"',Name = '"+value2+ "' WHERE Field_ID = '"+value1+"'";
+            String sql = "update Field set Field_ID='"+value1+"',Name = '"+value2+"', Description = '"+value3+"'  WHERE Field_ID = '"+value1+"'";
 
             pst = conn.prepareStatement(sql);
             pst.execute();
 
             JOptionPane.showMessageDialog(null,"Field updated");
             clearFields();
+            updatetable();
         }catch (Exception e){
 
             JOptionPane.showMessageDialog(null,e);
@@ -251,14 +268,12 @@ public class FieldController {
     void GetSelected(MouseEvent event) {
         index = FldTab.getSelectionModel().getSelectedIndex();
 
-        if(index <= -1){
-
-            return;
+        if (index >= 0) {
+            Field selectedField = FldTab.getItems().get(index);
+            FieldID.setText(String.valueOf(selectedField.getId()));
+            FldName.setText(selectedField.getName());
+            Description.setText(selectedField.getDescription());
         }
-
-        FieldID.setText(ColFldID.getCellData(index).toString());
-        FldName.setText(colName.getCellData(index));
-
     }
 
 
@@ -267,16 +282,18 @@ public class FieldController {
         KeyCode keyCode = event.getCode();
         if (keyCode == KeyCode.UP) {
             focusPreviousField();
+            event.consume();
         } else if (keyCode == KeyCode.DOWN) {
             focusNextField();
+            event.consume();
         }
     }
 
     private void focusPreviousField() {
         if (FldName.isFocused()) {
             FieldID.requestFocus();
-        } else if (FieldID.isFocused()) {
-
+        } else if (Description.isFocused()) {
+            FldName.requestFocus();
         }
     }
 
@@ -284,7 +301,7 @@ public class FieldController {
         if (FieldID.isFocused()) {
             FldName.requestFocus();
         } else if (FldName.isFocused()) {
-
+            Description.requestFocus();
         }
     }
 

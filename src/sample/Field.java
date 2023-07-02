@@ -1,28 +1,37 @@
 package sample;
 
-public class Field {
+    public class Field {
+        private int id;
+        private String name;
+        private String description;
 
-    private Integer FieldID;
-    private String Name;
+        public Field(int id, String name, String description) {
+            this.id = id;
+            this.name = name;
+            this.description = description;
+        }
 
-    public Field(Integer FieldID, String Name) {
-        this.FieldID = FieldID;
-        this.Name = Name;
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
     }
-
-    public int getFieldID() {
-        return FieldID;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public void setFieldID(Integer FieldID) {
-        this.FieldID = FieldID;
-    }
-
-    public void setName(String Name) {
-        this.Name = Name;
-    }
-}

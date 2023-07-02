@@ -1,16 +1,24 @@
 package sample;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Module {
     private Integer ModID;
     private String Name;
     private Integer FieldID;
     private String Desc;
+    private List<Student> students;
 
     public Module(Integer ModID, String Name, Integer FieldID, String Desc) {
         this.ModID = ModID;
         this.Name = Name;
         this.FieldID = FieldID;
         this.Desc = Desc;
+        this.students = new ArrayList<>();
+
     }
 
     public Integer getModID() {
@@ -25,8 +33,18 @@ public class Module {
         return FieldID;
     }
 
-    public String getDesc() { return Desc;
+    public String getDesc() { return Desc; }
+
+
+    public List<Student> getStudents() {
+        return students;
     }
+
+
+    public void addStudent(Student student) {
+        students.add(student);
+    }
+
 
 
     public void setModID(Integer ModID) {

@@ -37,8 +37,7 @@ public class ModuleController {
     @FXML
     private TableColumn<Module, String> ColDescription;
 
-    @FXML
-    private Button Exit;
+
 
     @FXML
     private TextField Description;
@@ -55,8 +54,7 @@ public class ModuleController {
     @FXML
     private TableView<Module> ModTab;
 
-    @FXML
-    private Button home;
+
 
     @FXML
     private TextField search;
@@ -124,6 +122,23 @@ public class ModuleController {
         FieldID.clear();
         Description.clear();
     }
+
+
+
+    public void updatetable() {
+        ColModID.setCellValueFactory(new PropertyValueFactory<>("ModID"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("ModName"));
+        ColFieldID.setCellValueFactory(new PropertyValueFactory<>("FieldID"));
+        ColDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+
+        ObservableList<Module> updatedModuleList = getAllModules();
+        ModTab.setItems(updatedModuleList);
+    }
+
+
+
+
+
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
@@ -137,6 +152,7 @@ public class ModuleController {
 
             JOptionPane.showMessageDialog(null, "Module added");
             clearFields();
+            updatetable();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -154,6 +170,7 @@ public class ModuleController {
             pst.execute();
             JOptionPane.showMessageDialog(null, "Module deleted");
             clearFields();
+            updatetable();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -239,6 +256,7 @@ public class ModuleController {
 
             JOptionPane.showMessageDialog(null, "Module updated");
             clearFields();
+            updatetable();
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, e);

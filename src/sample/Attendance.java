@@ -8,17 +8,20 @@ public class Attendance {
     private String TchrCIN;
     private int modId;
     private String stts;
+    private String Date;
 
 
 
-    public Attendance(int attId, int stdID, String TchrCIN, int modId, String stts) {
+    public Attendance(int attId, int stdID, String TchrCIN, int modId, String stts, String Date) {
         this.attId = attId;
         this.stdID = stdID;
         this.TchrCIN = TchrCIN;
         this.modId = modId;
-
-
+        this.stts = stts;
+        this.Date = Date;
     }
+
+
 
 
     public int getAttId() {
@@ -41,6 +44,10 @@ public class Attendance {
         return stts;
     }
 
+    public String getDate() { return Date;  }
+
+
+
 
     public void setAttId(int attId) {
         this.attId = attId;
@@ -50,7 +57,7 @@ public class Attendance {
         this.stdID = stdID;
     }
 
-    public void setTchrId(String TchrCIN) {
+    public void setTchrCIN(String TchrCIN) {
         this.TchrCIN = TchrCIN;
     }
 
@@ -61,6 +68,8 @@ public class Attendance {
     public void setStts(String stts) {
         this.stts = stts;
     }
+
+    public void setDate(String date) { this.Date = Date;}
 
 
 

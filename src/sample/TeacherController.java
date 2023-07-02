@@ -84,6 +84,9 @@ public class TeacherController {
         colName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         colMail.setCellValueFactory(new PropertyValueFactory<>("mail"));
         ColPhone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+
+
+
     }
 
     private void displayTeachers() {

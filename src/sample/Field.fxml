@@ -10,12 +10,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FieldController">
+<AnchorPane prefHeight="694.0" prefWidth="1313.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.FieldController">
     <children>
-        <AnchorPane layoutX="64.0" layoutY="217.0" prefHeight="287.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
+        <AnchorPane layoutX="63.0" layoutY="132.0" prefHeight="424.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
             <children>
-                <TextField fx:id="FldName" layoutX="119.0" layoutY="181.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Name" />
-                <TextField fx:id="FieldID" editable="false" layoutX="119.0" layoutY="93.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Field ID" />
                 <Label layoutX="30.0" layoutY="197.0" prefHeight="17.0" prefWidth="75.0" text="Name">
                     <font>
                         <Font name="System Bold Italic" size="12.0" />
@@ -26,32 +24,40 @@
                         <Font name="System Bold Italic" size="12.0" />
                     </font>
                 </Label>
-              <Label layoutX="124.0" layoutY="36.0" prefHeight="30.0" prefWidth="75.0" text="FIELD">
+              <Label layoutX="124.0" layoutY="30.0" prefHeight="30.0" prefWidth="75.0" text="FIELD">
                   <font>
                       <Font name="Times New Roman Italic" size="20.0" />
                   </font>
               </Label>
+            <TextField fx:id="Description" layoutX="134.0" layoutY="276.0" onKeyPressed="#handleKeyPress" prefHeight="117.0" prefWidth="163.0" />
+            <Label layoutX="26.0" layoutY="311.0" prefHeight="17.0" prefWidth="67.0" text="Description">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="FieldID" layoutX="134.0" layoutY="97.0" prefHeight="42.0" prefWidth="163.0" />
+            <TextField fx:id="FldName" layoutX="134.0" layoutY="185.0" prefHeight="42.0" prefWidth="163.0" />
             </children>
         </AnchorPane>
-      <ImageView fitHeight="96.0" fitWidth="67.0" layoutX="192.0" layoutY="90.0" onMouseClicked="#OnActionHomee" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="96.0" fitWidth="67.0" layoutX="191.0" layoutY="29.0" onMouseClicked="#OnActionHomee" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@icons/home.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="83.0" fitWidth="75.0" layoutX="188.0" layoutY="548.0" onMouseClicked="#OnActionExit" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="83.0" fitWidth="75.0" layoutX="188.0" layoutY="594.0" onMouseClicked="#OnActionExit" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@icons/exit%20(1).png" />
          </image>
       </ImageView>
-      <AnchorPane layoutX="470.0" layoutY="49.0" prefHeight="627.0" prefWidth="626.0" style="-fx-background-color: #d1c4e9;">
+      <AnchorPane layoutX="479.0" layoutY="36.0" prefHeight="287.0" prefWidth="626.0" style="-fx-background-color: #d1c4e9;">
          <children>
             <TextField fx:id="search" layoutX="71.0" layoutY="97.0" prefHeight="49.0" prefWidth="180.0" />
-            <Button fx:id="searchBtn" layoutX="76.0" layoutY="175.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
+            <Button layoutX="76.0" layoutY="175.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
                <font>
                   <Font size="13.0" />
                </font>
             </Button>
-            <Label layoutX="91.0" layoutY="53.0" prefHeight="16.0" prefWidth="139.0" text="Search Field By Name">
+            <Label layoutX="123.0" layoutY="53.0" prefHeight="19.0" prefWidth="75.0" text="Search Field ">
                <font>
                   <Font name="System Italic" size="13.0" />
                </font>
@@ -83,13 +89,14 @@
                   </ImageView>
                </children>
             </AnchorPane>
-              <TableView id="StdTab" fx:id="FldTab" layoutX="71.0" layoutY="275.0" onMouseClicked="#GetSelected" onSort="#OnActionFldTab" prefHeight="307.0" prefWidth="512.0">
-                  <columns>
-                      <TableColumn fx:id="ColFldID" prefWidth="200.0" text="Field ID" />
-                      <TableColumn fx:id="colName" prefWidth="315.3333740234375" text="Name" />
-                  </columns>
-              </TableView>
          </children>
       </AnchorPane>
+        <TableView id="StdTab" fx:id="FldTab" layoutX="445.0" layoutY="362.0" onMouseClicked="#GetSelected" onSort="#OnActionFldTab" prefHeight="307.0" prefWidth="737.0">
+            <columns>
+                <TableColumn fx:id="ColFldID" prefWidth="173.3333740234375" text="Field ID" />
+                <TableColumn fx:id="colName" prefWidth="254.0" text="Name" />
+            <TableColumn fx:id="ColDesc" prefWidth="307.99995930989587" text="Description" />
+            </columns>
+        </TableView>
     </children>
 </AnchorPane>
