@@ -124,16 +124,16 @@ public class ModuleController {
     }
 
 
-
     public void updatetable() {
         ColModID.setCellValueFactory(new PropertyValueFactory<>("ModID"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("ModName"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
         ColFieldID.setCellValueFactory(new PropertyValueFactory<>("FieldID"));
-        ColDescription.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        ColDescription.setCellValueFactory(new PropertyValueFactory<>("Desc"));
 
         ObservableList<Module> updatedModuleList = getAllModules();
         ModTab.setItems(updatedModuleList);
     }
+
 
 
 
@@ -238,29 +238,28 @@ public class ModuleController {
         }
     }
 
-
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
         try {
-            conn = ConnexionMySQL.connectDb();
+            conn = connectDb();
             String value1 = ModID.getText();
             String value2 = ModName.getText();
             String value3 = FieldID.getText();
             String value4 = Description.getText();
 
-
-            String sql = "update Module set Module_ID='" + value1 + "', Name = '" + value2 + "', Field_ID = '" + value3  + "', Description = '" + value4  + "' WHERE Module_ID = '" + value1 + "'";
-
+            String sql = "UPDATE Module SET Name = ?, Field_ID = ?, Description = ? WHERE Module_ID = ?";
             pst = conn.prepareStatement(sql);
-            pst.execute();
+            pst.setString(1, value2);
+            pst.setString(2, value3);
+            pst.setString(3, value4);
+            pst.setString(4, value1);
+            pst.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Module updated");
             clearFields();
             updatetable();
-        } catch (Exception e) {
-
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
-
         }
     }
 

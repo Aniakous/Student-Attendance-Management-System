@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="694.0" prefWidth="1471.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AttendanceController">
+<AnchorPane prefHeight="694.0" prefWidth="1633.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AttendanceController">
     <children>
-        <AnchorPane layoutX="40.0" layoutY="132.0" prefHeight="429.0" prefWidth="319.0" style="-fx-background-color: #d1c4e9;">
+        <AnchorPane layoutX="41.0" layoutY="184.0" prefHeight="407.0" prefWidth="319.0" style="-fx-background-color: #d1c4e9;">
             <children>
                 <TextField fx:id="TchrCIN" layoutX="114.0" layoutY="246.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Teacher CIN" />
-                <TextField fx:id="ModID" layoutX="114.0" layoutY="335.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Module ID" />
+                <TextField fx:id="ModID" layoutX="114.0" layoutY="330.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Module ID" />
                 <TextField fx:id="stdID" layoutX="114.0" layoutY="161.0" onKeyPressed="#handleKeyPress" prefHeight="49.0" prefWidth="180.0" promptText="Student ID" />
                 <Label layoutX="17.0" layoutY="177.0" prefHeight="17.0" prefWidth="75.0" text="Student ID">
 
@@ -47,17 +47,16 @@
                 </Label>
             </children>
         </AnchorPane>
-        <TableView id="StdTab" fx:id="AttendanceTab" layoutX="389.0" layoutY="284.0" onMouseClicked="#GetSelected" prefHeight="369.0" prefWidth="857.0">
+        <TableView id="StdTab" fx:id="AttendanceTab" layoutX="466.0" layoutY="310.0" onMouseClicked="#GetSelected" prefHeight="369.0" prefWidth="701.0">
             <columns>
                 <TableColumn fx:id="ColAttID" prefWidth="124.66659545898438" text="Attendance ID" />
-                <TableColumn fx:id="ColStdID" prefWidth="109.33331298828125" text="Student ID" />
-                <TableColumn fx:id="ColTchrCIN" prefWidth="152.0" text="Teacher CIN" />
-                <TableColumn fx:id="ColModID" minWidth="0.0" prefWidth="110.0" text="Module ID" />
-                <TableColumn fx:id="Colstts" prefWidth="152.66668701171875" text="Status" />
-                <TableColumn fx:id="ColDate" prefWidth="204.666748046875" text="Date" />
+                <TableColumn fx:id="ColStdID" prefWidth="135.33331298828125" text="Student ID" />
+                <TableColumn fx:id="ColTchrCIN" prefWidth="145.3333740234375" text="Teacher CIN" />
+                <TableColumn fx:id="ColModID" minWidth="0.0" prefWidth="131.33331298828125" text="Module ID" />
+                <TableColumn fx:id="Colstts" prefWidth="165.3333740234375" text="Status" />
             </columns>
         </TableView>
-        <ImageView fitHeight="96.0" fitWidth="67.0" layoutX="167.0" layoutY="14.0" onMouseClicked="#OnActionHomee" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="96.0" fitWidth="67.0" layoutX="167.0" layoutY="23.0" onMouseClicked="#OnActionHomee" pickOnBounds="true" preserveRatio="true">
             <image>
                 <Image url="@icons/home.png" />
             </image>
@@ -67,47 +66,59 @@
                 <Image url="@icons/exit%20(1).png" />
             </image>
         </ImageView>
-        <AnchorPane layoutX="502.0" layoutY="30.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
-            <children>
-                <Button layoutX="36.0" layoutY="19.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="ADD" textFill="#380648" />
-                <Button layoutX="36.0" layoutY="90.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="UPDATE" textFill="#380648" />
-                <Button layoutX="36.0" layoutY="157.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="DELETE" textFill="#380648" />
-                <ImageView fitHeight="35.0" fitWidth="67.0" layoutX="49.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@icons/button.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="45.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@icons/delete.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="49.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@icons/refresh.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="837.0" layoutY="30.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
-            <children>
-                <TextField fx:id="search" layoutX="36.0" layoutY="68.0" prefHeight="49.0" prefWidth="194.0" />
-                <Button fx:id="searchBtn" layoutX="48.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
-                    <font>
-                        <Font size="13.0" />
-                    </font>
-                </Button>
-                <Label layoutX="71.0" layoutY="26.0" prefHeight="19.0" prefWidth="117.0" text="Search Attendance ">
+      <AnchorPane layoutX="432.0" layoutY="51.0" prefHeight="212.0" prefWidth="289.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+                <Label layoutX="86.0" layoutY="14.0" prefHeight="19.0" prefWidth="117.0" text="Search Attendance ">
                     <font>
                         <Font name="System Italic" size="13.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="63.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+                <TextField fx:id="search" layoutX="48.0" layoutY="56.0" prefHeight="49.0" prefWidth="194.0" />
+                <Button fx:id="searchBtn" layoutX="60.0" layoutY="132.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="SEARCH" textFill="#380648">
+                    <font>
+                        <Font size="13.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="35.0" fitWidth="34.0" layoutX="70.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@icons/search.png" />
                     </image>
                 </ImageView>
-            </children>
-        </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Label fx:id="DateLab" layoutX="211.0" layoutY="123.0" prefHeight="34.0" prefWidth="126.0" />
+      <AnchorPane layoutX="746.0" layoutY="51.0" prefHeight="212.0" prefWidth="496.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+            <Button layoutX="44.0" layoutY="42.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="ADD" textFill="#380648" />
+            <Button layoutX="44.0" layoutY="128.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="UPDATE" textFill="#380648" />
+            <ImageView fitHeight="35.0" fitWidth="67.0" layoutX="57.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/button.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="57.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/refresh.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="272.0" layoutY="128.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="DELETE" textFill="#380648" />
+            <ImageView fitHeight="42.0" fitWidth="43.0" layoutX="281.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/delete.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="savebtn" layoutX="272.0" layoutY="42.0" mnemonicParsing="false" onAction="#OnActionSaveBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="SAVE " textFill="#380648" />
+            <ImageView fitHeight="35.0" fitWidth="42.0" layoutX="285.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/save.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Label layoutX="68.0" layoutY="131.0" prefHeight="19.0" prefWidth="126.0" text="TODAY' S DATE ">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="16.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

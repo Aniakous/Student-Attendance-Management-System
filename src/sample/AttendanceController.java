@@ -19,12 +19,22 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import static sample.ConnexionMySQL.connectDb;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import javafx.scene.control.ComboBox;
+import java.util.List;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+
 
 
 public class AttendanceController {
@@ -50,10 +60,6 @@ public class AttendanceController {
     @FXML
     private TableColumn<Attendance, ComboBox<String>> Colstts;
 
-
-    @FXML
-    private TableColumn<Attendance, String> ColDate;
-
     @FXML
     private TextField ModID;
 
@@ -64,7 +70,14 @@ public class AttendanceController {
     private TextField search;
 
     @FXML
+    private Label DateLab;
+
+    @FXML
     private TextField stdID;
+
+    @FXML
+    private Button savebtn;
+
 
     private SimpleDateFormat dateFormat;
 
@@ -72,15 +85,16 @@ public class AttendanceController {
         Date now = new Date();
         String formattedDate = dateFormat.format(now);
         Platform.runLater(() -> {
-            ColDate.setCellValueFactory(cellData -> {
-                return new SimpleStringProperty(formattedDate);
-            });
+            DateLab.setText(formattedDate); // Set the formatted date to the DateLab label
         });
     }
+
 
     private void displayAttendance() {
         AttendanceList = getAllAttendance();
         AttendanceTab.setItems(AttendanceList);
+        //DateLab.setText(dateFormat.format(new Date()));
+
     }
 
     public void initialize() {
@@ -88,55 +102,17 @@ public class AttendanceController {
         initializeTableColumns();
         displayAttendance();
         AttendanceTab.setItems(AttendanceList);
-
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        updateDateTime();
-
-        ColDate.setCellValueFactory(cellData -> {
-            return new SimpleStringProperty(dateFormat.format(new Date()));
-        });
-
-        Thread dateTimeThread = new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                    updateDateTime();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        dateTimeThread.setDaemon(true);
-        dateTimeThread.start();
-    }
-
-
-    private void updateAttendanceStatusInDatabase(int attendanceId, String status) {
-        conn = connectDb();
-        String sql = "UPDATE Attendance SET Status = ? WHERE Attendance_ID = ?";
-        try {
-            pst = conn.prepareStatement(sql);
-            pst.setString(1, status);
-            pst.setInt(2, attendanceId);
-            pst.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        updateDateTime(); // Commented out
+        DateLab.setText(LocalDate.now().toString()); // Set the current date to the DateLab label
     }
 
 
     private void initializeTableColumns() {
-        ColAttID.setCellValueFactory(new PropertyValueFactory<>("attId"));
-        ColStdID.setCellValueFactory(new PropertyValueFactory<>("stdID"));
-        ColTchrCIN.setCellValueFactory(new PropertyValueFactory<>("TchrCIN"));
-        ColModID.setCellValueFactory(new PropertyValueFactory<>("modId"));
-
+        ColAttID.setCellValueFactory(new PropertyValueFactory<Attendance, Integer>("attId"));
+        ColStdID.setCellValueFactory(new PropertyValueFactory<Attendance, Integer>("stdID"));
+        ColTchrCIN.setCellValueFactory(new PropertyValueFactory<Attendance, String>("TchrCIN"));
+        ColModID.setCellValueFactory(new PropertyValueFactory<Attendance, Integer>("modId"));
 
         Colstts.setCellValueFactory(cellData -> {
             Attendance attendance = cellData.getValue();
@@ -147,19 +123,20 @@ public class AttendanceController {
             comboBox.setOnAction((event) -> {
                 String newValue = comboBox.getValue();
                 attendance.setStts(newValue);
-                updateAttendanceStatusInDatabase(attendance.getAttId(), newValue);
             });
 
             return new SimpleObjectProperty<>(comboBox);
         });
-
     }
+
 
     private ObservableList<Attendance> AttendanceList;
     private int index = -1;
     private Connection conn = null;
     private ResultSet rs = null;
     private PreparedStatement pst = null;
+
+
 
     public static ObservableList<Attendance> getAllAttendance() {
         Connection conn = connectDb();
@@ -175,9 +152,8 @@ public class AttendanceController {
                 String TchrCIN = rs.getString("Teacher_CIN");
                 int ModID = rs.getInt("Module_ID");
                 String stts = rs.getString("Status");
-                String Date = rs.getString("Date");
 
-                list.add(new Attendance(attendanceId, stdID, TchrCIN, ModID, stts, Date));
+                list.add(new Attendance(attendanceId, stdID, TchrCIN, ModID, stts));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -191,6 +167,67 @@ public class AttendanceController {
 
         return list;
     }
+
+
+
+    @FXML
+    void OnActionSaveBtn(ActionEvent event) {
+        try {
+            conn = connectDb();
+            LocalDate currentDate = LocalDate.parse(DateLab.getText(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            LocalDate todayDate = LocalDate.now();
+
+            String checkSql = "SELECT * FROM DailyAttendance WHERE Date = ?";
+            pst = conn.prepareStatement(checkSql);
+            pst.setString(1, DateLab.getText());
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Attendance has already been saved for today.");
+            } else {
+                // Save all students for a new date
+                String insertSql = "INSERT INTO DailyAttendance(Student_ID, Teacher_CIN, Module_ID, Status, Date) " +
+                        "SELECT A.Student_ID, A.Teacher_CIN, A.Module_ID, A.Status, ? FROM Attendance A " +
+                        "LEFT JOIN DailyAttendance D ON A.Student_ID = D.Student_ID AND D.Date = ? " +
+                        "WHERE D.Student_ID IS NULL";
+                pst = conn.prepareStatement(insertSql);
+                pst.setString(1, DateLab.getText());
+                pst.setString(2, DateLab.getText());
+                pst.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "Daily Attendance saved");
+                clearFields();
+                updatetable();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+
+    @FXML
+    void OnActionUpdateBtn(ActionEvent event) {
+        try {
+            conn = ConnexionMySQL.connectDb();
+            String value1 = AttendanceID.getText();
+            String value2 = stdID.getText();
+            String value3 = TchrCIN.getText();
+            String value4 = ModID.getText();
+
+            String sql = "UPDATE Attendance SET Student_ID = '" + value2 + "', Teacher_CIN = '" + value3 + "', Module_ID = '" + value4 + "' WHERE Attendance_ID = '" + value1 + "'";
+
+            pst = conn.prepareStatement(sql);
+            pst.execute();
+
+            JOptionPane.showMessageDialog(null, "Attendance updated");
+            clearFields();
+            updatetable();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+
 
 
     @FXML
@@ -220,26 +257,23 @@ public class AttendanceController {
         ColStdID.setCellValueFactory(new PropertyValueFactory<>("stdID"));
         ColTchrCIN.setCellValueFactory(new PropertyValueFactory<>("TchrCIN"));
         ColModID.setCellValueFactory(new PropertyValueFactory<>("modId"));
-        ColDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
 
         AttendanceList = getAllAttendance();
         AttendanceTab.setItems(AttendanceList);
     }
 
-
-
-
     @FXML
     void OnActionAddBtn(ActionEvent event) {
         conn = connectDb();
-        String sql = "INSERT INTO Attendance(Student_ID, Teacher_CIN, Module_ID, Status, Date) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Attendance(Student_ID, Teacher_CIN, Module_ID, Status) VALUES (?,?,?,?)";
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, stdID.getText());
             pst.setString(2, TchrCIN.getText());
             pst.setString(3, ModID.getText());
             pst.setString(4, "Absent");
-            pst.setString(5, dateFormat.format(new Date()));
+           // pst.setString(5, DateLab.getText()); // Get the date from the DateLab label
+
             pst.execute();
 
             JOptionPane.showMessageDialog(null, "Attendance added");
@@ -249,6 +283,8 @@ public class AttendanceController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
+
 
     @FXML
     void OnActionDeleteBtn(ActionEvent event) {
@@ -281,9 +317,9 @@ public class AttendanceController {
         conn = connectDb();
         String searchText = search.getText();
         try {
-            String sql = "SELECT * FROM Attendance WHERE Attendance_ID LIKE ? OR Student_ID LIKE ? OR Teacher_CIN LIKE ? OR Module_ID LIKE ? OR Status LIKE ? OR `Date` LIKE ?";
+            String sql = "SELECT * FROM Attendance WHERE Attendance_ID LIKE ? OR Student_ID LIKE ? OR Teacher_CIN LIKE ? OR Module_ID LIKE ? OR Status LIKE ?";
             pst = conn.prepareStatement(sql);
-            for (int i = 1; i <= 6; i++) {
+            for (int i = 1; i <= 5; i++) {
                 pst.setString(i, "%" + searchText + "%");
             }
             rs = pst.executeQuery();
@@ -294,9 +330,8 @@ public class AttendanceController {
                 String tchrCIN = rs.getString("Teacher_CIN");
                 int modId = rs.getInt("Module_ID");
                 String stts = rs.getString("Status");
-                String date = rs.getString("Date");
 
-                AttendanceList.add(new Attendance(attId, stdID, tchrCIN, modId, stts, date));
+                AttendanceList.add(new Attendance(attId, stdID, tchrCIN, modId, stts));
             }
             AttendanceTab.setItems(AttendanceList);
             clearFields();
@@ -316,28 +351,6 @@ public class AttendanceController {
         }
     }
 
-
-    @FXML
-    void OnActionUpdateBtn(ActionEvent event) {
-        try {
-            conn = ConnexionMySQL.connectDb();
-            String value1 = AttendanceID.getText();
-            String value2 = stdID.getText();
-            String value3 = TchrCIN.getText();
-            String value4 = ModID.getText();
-
-            String sql = "UPDATE Attendance SET Student_ID = '" + value2 + "', Teacher_CIN = '" + value3 + "', Module_ID = '" + value4 + "' WHERE Attendance_ID = '" + value1 + "'";
-
-            pst = conn.prepareStatement(sql);
-            pst.execute();
-
-            JOptionPane.showMessageDialog(null, "Attendance updated");
-            clearFields();
-            updatetable();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
 
     @FXML
     void handleKeyPress(KeyEvent event) {

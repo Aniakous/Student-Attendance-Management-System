@@ -124,6 +124,18 @@ public class TeacherController {
         return list;
     }
 
+
+    public void updateTable() {
+        colTchrCIN.setCellValueFactory(new PropertyValueFactory<>("TchrCIN"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        colMail.setCellValueFactory(new PropertyValueFactory<>("mail"));
+        ColPhone.setCellValueFactory(new PropertyValueFactory<>("Phone"));
+
+        ObservableList<Teacher> updatedTeacherList = getAllTeachers();
+        TchrTab.setItems(updatedTeacherList);
+    }
+
+
     private void clearFields() {
         CIN.clear();
         fullname.clear();
@@ -146,6 +158,7 @@ public class TeacherController {
 
             JOptionPane.showMessageDialog(null, "Teacher added");
             clearFields();
+            updateTable();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -160,13 +173,20 @@ public class TeacherController {
         try {
             pst = conn.prepareStatement(sql);
             pst.setString(1, CIN.getText());
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Teacher deleted");
-            clearFields();
+            int rowsAffected = pst.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Teacher deleted");
+                clearFields();
+                updateTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "No teacher found with the provided CIN");
+            }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error occurred while deleting teacher: " + e.getMessage());
         }
     }
+
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
@@ -214,27 +234,33 @@ public class TeacherController {
 
     @FXML
     void OnActionUpdateBtn(ActionEvent event) {
-
-        try{
+        try {
             conn = ConnexionMySQL.connectDb();
             String value1 = CIN.getText();
             String value2 = fullname.getText();
             String value3 = mail.getText();
             String value4 = Phone.getText();
 
-            String sql = "update Teacher set Teacher_CIN='"+value1+"',Full_Name = '"+value2+"', Email = '"+value3+"' , Phone_Number = '"+value4+"' WHERE Teacher_CIN = '"+value1+"'";
-
+            String sql = "UPDATE Teacher SET Full_Name = ?, Email = ?, Phone_Number = ? WHERE Teacher_CIN = ?";
             pst = conn.prepareStatement(sql);
-            pst.execute();
+            pst.setString(1, value2);
+            pst.setString(2, value3);
+            pst.setString(3, value4);
+            pst.setString(4, value1);
+            int rowsAffected = pst.executeUpdate();
 
-            JOptionPane.showMessageDialog(null,"Teacher updated");
-            clearFields();
-        }catch (Exception e){
-
-            JOptionPane.showMessageDialog(null,e);
-
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Teacher updated");
+                clearFields();
+                updateTable();
+            } else {
+                JOptionPane.showMessageDialog(null, "No teacher found with the provided CIN");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error occurred while updating teacher: " + e.getMessage());
         }
-        }
+    }
+
 
 
     @FXML

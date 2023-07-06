@@ -138,6 +138,18 @@ public class StudentController  {
         phone.clear();
     }
 
+    public void updateTable() {
+        colstdID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        colFieldID.setCellValueFactory(new PropertyValueFactory<>("fieldId"));
+        colMail.setCellValueFactory(new PropertyValueFactory<>("mail"));
+        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+
+        ObservableList<Student> updatedStudentList = getAllUsers();
+        StdTab.setItems(updatedStudentList);
+    }
+
+
 
     @FXML
     void OnActionAddBtn(ActionEvent event) {
@@ -153,6 +165,7 @@ public class StudentController  {
 
             JOptionPane.showMessageDialog(null, "Student added");
             clearFields();
+            updateTable();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -169,6 +182,7 @@ public class StudentController  {
             pst.execute();
             JOptionPane.showMessageDialog(null, "Student deleted");
             clearFields();
+            updateTable();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -192,6 +206,7 @@ public class StudentController  {
 
             JOptionPane.showMessageDialog(null,"Student updated");
             clearFields();
+            updateTable();
         }catch (Exception e){
 
             JOptionPane.showMessageDialog(null,e);

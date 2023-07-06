@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
+<AnchorPane fx:id="root" prefHeight="694.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.TeacherController">
     <children>
         <AnchorPane layoutX="24.0" layoutY="145.0" prefHeight="429.0" prefWidth="323.0" style="-fx-background-color: #d1c4e9;">
             <children>
@@ -46,7 +46,7 @@
             </Label>
             </children>
         </AnchorPane>
-        <TableView id="StdTab" fx:id="TchrTab" layoutX="425.0" layoutY="270.0" onMouseClicked="#GetSelected" onSort="#OnActionStdTab" prefHeight="410.0" prefWidth="786.0">
+        <TableView id="StdTab" fx:id="TchrTab" layoutX="416.0" layoutY="303.0" onMouseClicked="#GetSelected" onSort="#OnActionStdTab" prefHeight="363.0" prefWidth="786.0">
             <columns>
                 <TableColumn fx:id="colTchrCIN" prefWidth="118.66665649414062" text="Teacher CIN" />
                 <TableColumn fx:id="colName" prefWidth="187.33331298828125" text="Full Name" />
@@ -54,7 +54,7 @@
             <TableColumn fx:id="ColPhone" prefWidth="222.66668701171875" text="Phone Number" />
             </columns>
         </TableView>
-      <AnchorPane layoutX="497.0" layoutY="25.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
+      <AnchorPane layoutX="496.0" layoutY="52.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
          <children>
             <Button layoutX="36.0" layoutY="16.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="ADD" textFill="#380648" />
             <Button layoutX="36.0" layoutY="86.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="UPDATE" textFill="#380648" />
@@ -76,7 +76,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="842.0" layoutY="25.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
+      <AnchorPane layoutX="822.0" layoutY="52.0" prefHeight="221.0" prefWidth="259.0" style="-fx-background-color: #d1c4e9;">
          <children>
             <TextField fx:id="search" layoutX="36.0" layoutY="61.0" prefHeight="49.0" prefWidth="194.0" promptText="Search Teacher" />
             <Button fx:id="searchBtn" layoutX="48.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
