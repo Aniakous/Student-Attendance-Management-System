@@ -11,26 +11,26 @@
       <AnchorPane layoutX="256.0" layoutY="148.0" prefHeight="425.0" prefWidth="752.0" style="-fx-background-color: #d1c4e9;">
          <children>
 
-             <Button layoutX="36.0" layoutY="135.0" mnemonicParsing="false" onAction="#OnActionStudent" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" text="STUDENT" textFill="#380648">
+             <Button layoutX="36.0" layoutY="135.0" mnemonicParsing="false" onAction="#OnActionStudent" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="STUDENT" textFill="#380648">
                <font>
                   <Font name="Candara Bold Italic" size="14.0" />
                </font>
              </Button>
 
 
-             <Button layoutX="304.0" layoutY="135.0" mnemonicParsing="false" onAction="#OnActionTeacher" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" text="TEACHER" textFill="#380648">
+             <Button layoutX="304.0" layoutY="135.0" mnemonicParsing="false" onAction="#OnActionTeacher" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="TEACHER" textFill="#380648">
                <font>
                   <Font name="Candara Bold Italic" size="14.0" />
                </font></Button>
-            <Button layoutX="549.0" layoutY="135.0" mnemonicParsing="false" onAction="#OnActionAttedance" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" text="ATTENDANCE" textFill="#380648">
+            <Button layoutX="549.0" layoutY="135.0" mnemonicParsing="false" onAction="#OnActionAttedance" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="ATTENDANCE" textFill="#380648">
                <font>
                   <Font name="Candara Bold Italic" size="14.0" />
                </font></Button>
-            <Button layoutX="134.0" layoutY="344.0" mnemonicParsing="false" onAction="#OnActionField" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" text="FIELD" textFill="#380648">
+            <Button layoutX="134.0" layoutY="344.0" mnemonicParsing="false" onAction="#OnActionField" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="FIELD" textFill="#380648">
                <font>
                   <Font name="Candara Bold Italic" size="14.0" />
                </font></Button>
-            <Button layoutX="436.0" layoutY="344.0" mnemonicParsing="false" onAction="#OnActionModule" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" text="MODULE" textFill="#380648">
+            <Button layoutX="436.0" layoutY="344.0" mnemonicParsing="false" onAction="#OnActionModule" prefHeight="49.0" prefWidth="168.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="MODULE" textFill="#380648">
                <font>
                   <Font name="Candara Bold Italic" size="14.0" />
                </font>

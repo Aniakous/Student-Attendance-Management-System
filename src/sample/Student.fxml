@@ -66,7 +66,7 @@
       <AnchorPane layoutX="815.0" layoutY="20.0" prefHeight="221.0" prefWidth="290.0" style="-fx-background-color: #d1c4e9;">
          <children>
             <TextField fx:id="search" layoutX="48.0" layoutY="63.0" prefHeight="49.0" prefWidth="194.0" />
-            <Button fx:id="searchBtn" layoutX="60.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" text="SEARCH" textFill="#380648">
+            <Button fx:id="searchBtn" layoutX="60.0" layoutY="140.0" mnemonicParsing="false" onAction="#OnActionSearchBtn" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="SEARCH" textFill="#380648">
                <font>
                   <Font size="13.0" />
                </font></Button>
@@ -84,9 +84,9 @@
       </AnchorPane>
       <AnchorPane layoutX="451.0" layoutY="20.0" prefHeight="221.0" prefWidth="290.0" style="-fx-background-color: #d1c4e9;">
          <children>
-            <Button layoutX="46.0" layoutY="21.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="ADD" textFill="#380648" />
-            <Button layoutX="46.0" layoutY="92.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="UPDATE" textFill="#380648" />
-            <Button layoutX="46.0" layoutY="159.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" text="DELETE" textFill="#380648" />
+            <Button layoutX="46.0" layoutY="21.0" mnemonicParsing="false" onAction="#OnActionAddBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="ADD" textFill="#380648" />
+            <Button layoutX="46.0" layoutY="92.0" mnemonicParsing="false" onAction="#OnActionUpdateBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="UPDATE" textFill="#380648" />
+            <Button layoutX="46.0" layoutY="159.0" mnemonicParsing="false" onAction="#OnActionDeleteBtn" prefHeight="49.0" prefWidth="194.0" style="-fx-background-color: #e1f5fe;" stylesheets="@style.css" text="DELETE" textFill="#380648" />
             <ImageView fitHeight="35.0" fitWidth="67.0" layoutX="59.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icons/button.png" />

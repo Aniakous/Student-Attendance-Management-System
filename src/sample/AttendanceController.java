@@ -3,6 +3,7 @@ package sample;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import static sample.ConnexionMySQL.connectDb;
 import java.text.SimpleDateFormat;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 
 
 
@@ -78,6 +81,8 @@ public class AttendanceController {
     @FXML
     private Button savebtn;
 
+    @FXML
+    private ComboBox<Integer> modCombo;
 
     private SimpleDateFormat dateFormat;
 
@@ -103,9 +108,13 @@ public class AttendanceController {
         displayAttendance();
         AttendanceTab.setItems(AttendanceList);
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        updateDateTime(); // Commented out
-        DateLab.setText(LocalDate.now().toString()); // Set the current date to the DateLab label
+        updateDateTime();
+        DateLab.setText(LocalDate.now().toString());
+
+
+
     }
+
 
 
     private void initializeTableColumns() {
@@ -185,15 +194,23 @@ public class AttendanceController {
             if (rs.next()) {
                 JOptionPane.showMessageDialog(null, "Attendance has already been saved for today.");
             } else {
+                ObservableList<Attendance> data = AttendanceTab.getItems();
+
                 // Save all students for a new date
                 String insertSql = "INSERT INTO DailyAttendance(Student_ID, Teacher_CIN, Module_ID, Status, Date) " +
-                        "SELECT A.Student_ID, A.Teacher_CIN, A.Module_ID, A.Status, ? FROM Attendance A " +
-                        "LEFT JOIN DailyAttendance D ON A.Student_ID = D.Student_ID AND D.Date = ? " +
-                        "WHERE D.Student_ID IS NULL";
+                        "VALUES (?, ?, ?, ?, ?)";
                 pst = conn.prepareStatement(insertSql);
-                pst.setString(1, DateLab.getText());
-                pst.setString(2, DateLab.getText());
-                pst.executeUpdate();
+
+                for (Attendance item : data) {
+                    pst.setInt(1, item.getStdID());
+                    pst.setString(2, item.getTchrCIN());
+                    pst.setInt(3, item.getModId());
+                    pst.setString(4, item.getStts());
+                    pst.setString(5, DateLab.getText());
+                    pst.addBatch();
+                }
+
+                pst.executeBatch();
 
                 JOptionPane.showMessageDialog(null, "Daily Attendance saved");
                 clearFields();
@@ -203,6 +220,7 @@ public class AttendanceController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
 
 
     @FXML
@@ -307,10 +325,16 @@ public class AttendanceController {
         Platform.exit();
     }
 
+
+
     @FXML
     void OnActionHomee(MouseEvent event) throws IOException {
         JFxUtils.changeScene(Main.stage, "Home.fxml");
+
     }
+
+
+
 
     @FXML
     void OnActionSearchBtn(ActionEvent event) {
@@ -350,6 +374,13 @@ public class AttendanceController {
             JOptionPane.showMessageDialog(null, e);
         }
     }
+
+
+    @FXML
+    void modhandle(ActionEvent event) {
+
+    }
+
 
 
     @FXML
