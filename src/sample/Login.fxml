@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="718.0" prefWidth="1264.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.LoginController">
+   <children>
+      <AnchorPane layoutX="616.0" layoutY="165.0" prefHeight="387.0" prefWidth="599.0" style="-fx-background-color: #d1c4e9;">
+         <children>
+            <TextField fx:id="lbluser" layoutX="234.0" layoutY="104.0" prefHeight="49.0" prefWidth="244.0" />
+            <Label layoutX="93.0" layoutY="120.0" prefHeight="17.0" prefWidth="85.0" text="USERNAME" textFill="#271069">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="93.0" layoutY="208.0" prefHeight="17.0" prefWidth="85.0" text="PASSWORD" textFill="#271069">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="98.0" fitWidth="154.0" layoutX="247.0" layoutY="285.0" onMouseClicked="#btnlogin" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/log-in.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="lblpss" layoutX="233.0" layoutY="192.0" prefHeight="49.0" prefWidth="244.0" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="780.0" layoutY="598.0" prefHeight="49.0" prefWidth="185.0" text="Don't have account yet ?">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="59.0" fitWidth="93.0" layoutX="966.0" layoutY="598.0" onMouseClicked="#btnsignup" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@icons/signup.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutX="52.0" layoutY="129.0" prefHeight="460.0" prefWidth="509.0" style="-fx-background-color: #e1f5fe;">
+         <children>
+            <Label layoutX="47.0" layoutY="249.0" prefHeight="49.0" prefWidth="415.0" text="STUDENT ATTENDANCE MANAGEMENT SYSTEM" textAlignment="CENTER" textFill="#13175e">
+               <font>
+                  <Font name="Times New Roman Bold" size="17.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="215.0" fitWidth="185.0" layoutX="162.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/faculty.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="196.0" layoutY="377.0" prefHeight="37.0" prefWidth="117.0" text="By Soukaina Arkob">
+               <font>
+                  <Font name="System Italic" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="884.0" layoutY="72.0" prefHeight="37.0" prefWidth="117.0" text="LOGIN" textAlignment="CENTER" textFill="#5f0884">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
